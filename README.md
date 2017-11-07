@@ -1,6 +1,6 @@
 # CommunicationHub
 ## Connecting the Pi to the Dev board using bluetoothctl
-Run the the bash script to automatically connect to the dev board with the yellow tape on it
+Run the the bash script to automatically connect to the dev board with the yellow tape on it. To change the device, follow the steps below to get the devices UUID and change the UUID in file.txt
 
 ## Working with bluetoothctl manually
   - Type 'bluetoothctl' in terminal 
