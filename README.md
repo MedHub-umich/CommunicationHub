@@ -10,3 +10,8 @@ Run the the bash script to automatically connect to the dev board with the yello
   - To connect type 'connect UUID' 
   - To make sure you are connected you can check the connection with 'info UUID>'
   
+## Setting Up BluetoothLib
+  - Install bluez via sudo apt-get install bluez
+  - sudo gatttool -i hci0 -b <BLE_Address> -I  (example Yellow Taped Device has address D9:04:7D:17:F7:80) 
+  - cha-write-req 0x0011 0100 -listen
+  
