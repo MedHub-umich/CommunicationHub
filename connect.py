@@ -8,10 +8,10 @@ class Device:
         self.MACaddress = address
         self.deviceHandle = connect(address)
 
-    def readFrom(self.deviceHandle):
+    def readFrom(self):
       print("reading from"),
       print(MACaddress)
-      deviceHandle.sendline("char-write-req 0x0011 0100 -listen")
+      self.deviceHandle.sendline("char-write-req 0x0011 0100 -listen")
       
       while True:
        child.expect("Notification handle = 0x0010 value: ", timeout=10)
