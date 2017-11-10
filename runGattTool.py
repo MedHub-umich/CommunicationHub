@@ -4,8 +4,7 @@ import time
  
 DEVICE = "D9:04:7D:17:F7:80"
 DEVICE2 = "EF:DD:9C:D6:FB:6B"
- 
-print("Hexiwear address:"),
+
 print(DEVICE)
  
 # Run gatttool interactively.
