@@ -35,13 +35,21 @@ def hexStrToInt(hexstr):
 #while True:
 # Accelerometer
 child.sendline("char-write-req 0x0011 0100 -listen")
-#while True:
-#    child.expect("Notification handle = 0x0010 value: ", timeout=10)
- #   child.expect("\r\n", timeout=10)
-  #  print("Value: "),
-  #  print(child.before),
-  # #print(hexStrToInt(child.before[0:5]))
-  # print("\r\nblu")
+while True:
+   child.expect("Notification handle = 0x0010 value: ", timeout=10)
+   child.expect("\r\n", timeout=10)
+   print("Value: "),
+   print(child.before),
+   #print(hexStrToInt(child.before[0:5]))
+   print("\n")
+
+   child2.expect("Notification handle = 0x0010 value: ", timeout=10)
+   child2.expect("\r\n", timeout=10)
+   print("Second Value: "),
+   print(child2.before),
+   #print(hexStrToInt(child.before[0:5]))
+   print("\n")
+
 
 
 
