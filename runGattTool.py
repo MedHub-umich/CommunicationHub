@@ -18,10 +18,10 @@ child.sendline("connect")
 child.expect("Connection successful", timeout=5)
 print(" Connected!")
  
-# function to transform hex string like "0a cd" into signed integer
+# function to transform hex string into signed integer
 def hexStrToInt(hexstr):
     val = int(hexstr[0:2],16) + (int(hexstr[3:5],16)<<8)
-    if ((val&0x8000)==0x8000): # treat signed 16bits
+    if ((val&0x8000)==0x8000): # treat signed 16-bits
         val = -((val^0xffff)+1)
     return val
  
