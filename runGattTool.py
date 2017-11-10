@@ -19,11 +19,11 @@ child.expect("Connection successful", timeout=5)
 print(" Connected!")
  
 # function to transform hex string like "0a cd" into signed integer
-#def hexStrToInt(hexstr):
-#	val = int(hexstr[0:2],16) + (int(hexstr[3:5],16)<<8)
-#	if ((val&0x8000)==0x8000): # treat signed 16bits
-#	val = -((val^0xffff)+1)
-#	return val
+def hexStrToInt(hexstr):
+    val = int(hexstr[0:2],16) + (int(hexstr[3:5],16)<<8)
+    if ((val&0x8000)==0x8000): # treat signed 16bits
+        val = -((val^0xffff)+1)
+    return val
  
 #while True:
 # Accelerometer
@@ -31,14 +31,6 @@ child.sendline("char-write-req 0x0011 0100 -listen")
 while True:
     child.expect("Notification handle = 0x0010 value: ", timeout=10)
     child.expect("\r\n", timeout=10)
-    print("Accel: "),
+    print("Value: "),
     print(child.before),
-    print(child.before[0:5])
-
-#child.sendline("char-read-hnd 0x30")
-
-#child.sendline("char-read-hnd 0x0011")
-#child.expect("Characteristic value/descriptor: ", timeout=10)
-#child.expect("\r\n", timeout=10)
-#print("Accel: "),
-#print(child.before)
+    #print(hexStrToInt(child.before[0:5]))
