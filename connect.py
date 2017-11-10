@@ -4,9 +4,9 @@ import time
 DEVICES = ["D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B"]
 
 class Device:
-  _init_(self, MACaddress):
-    self.MACaddress = MACaddress
-    self.deviceHandle = connect(MACaddress)
+    def __init__(self, address):
+        self.MACaddress = address
+        self.deviceHandle = connect(address)
 
 
 
