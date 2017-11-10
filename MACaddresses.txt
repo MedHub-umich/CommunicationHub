@@ -1,2 +1,3 @@
 BentPins 	EF:DD:9C:D6:FB:6B
 YellowTape 	D9:04:7D:17:F7:80
+BlueTape	F3:C9:F9:A0:E9:6E
