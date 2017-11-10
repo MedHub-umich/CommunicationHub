@@ -10,12 +10,12 @@ print(DEVICE)
  
 # Run gatttool interactively.
 print("Run gatttool...")
-child = pexpect.spawn("sudo gatttool -i hci0 -t random -b D9:04:7D:17:F7:80 -I")
+child = pexpect.spawn("sudo gatttool -i hci0 -t random -b EF:DD:9C:D6:FB:6B -I")
 # child2 = pexpect.spawn("sudo gatttool -i hci0 -t random -b EF:DD:9C:D6:FB:6B -I")
  
 # Connect to the device.
 print("Connecting to "),
-print(DEVICE),
+print(DEVICE2),
 child.sendline("connect")
 child.expect("Connection successful", timeout=5)
 print(" Connected!")

@@ -35,6 +35,7 @@ def hexStrToInt(hexstr):
 #while True:
 # Accelerometer
 child.sendline("char-write-req 0x0011 0100 -listen")
+child2.sendline("char-write-req 0x0011 0100 -listen")
 while True:
    child.expect("Notification handle = 0x0010 value: ", timeout=10)
    child.expect("\r\n", timeout=10)
