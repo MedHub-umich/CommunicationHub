@@ -8,6 +8,18 @@ class Device:
         self.MACaddress = address
         self.deviceHandle = connect(address)
 
+    def readFrom(self.deviceHandle):
+      print("reading from"),
+      print(MACaddress)
+      deviceHandle.sendline("char-write-req 0x0011 0100 -listen")
+      
+      while True:
+       child.expect("Notification handle = 0x0010 value: ", timeout=10)
+       child.expect("\r\n", timeout=10)
+       print("Value: "),
+       print(child.before),
+       print("\n")
+
 
 
 def connect(MACaddress):
@@ -23,6 +35,9 @@ def connect(MACaddress):
   print("!")
   return child
 
-# def readFrom(device):
-#   print("reading from"),
-#   print(MACaddress)
+def scan():
+  print("Scanning for devices...")
+  child = pexpect.spawn("sudo hcitool lescan")
+  print(child)
+
+
