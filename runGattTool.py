@@ -3,6 +3,7 @@ import pexpect
 import time
  
 DEVICE = "D9:04:7D:17:F7:80"
+DEVICE2 = "EF:DD:9C:D6:FB:6B"
  
 print("Hexiwear address:"),
 print(DEVICE)
@@ -10,6 +11,7 @@ print(DEVICE)
 # Run gatttool interactively.
 print("Run gatttool...")
 child = pexpect.spawn("sudo gatttool -i hci0 -t random -b D9:04:7D:17:F7:80 -I")
+child2 = pexpect.spawn("sudo gatttool -i hci0 -t random -b EF:DD:9C:D6:FB:6B -I")
  
 # Connect to the device.
 print("Connecting to "),
@@ -17,6 +19,11 @@ print(DEVICE),
 child.sendline("connect")
 child.expect("Connection successful", timeout=5)
 print(" Connected!")
+
+print("Attempting to connect to second device")
+child2.sendline("connect")
+child2.expect("Connection successful", timeout=5)
+print("Also connected!")
  
 # function to transform hex string into signed integer
 def hexStrToInt(hexstr):
@@ -28,9 +35,13 @@ def hexStrToInt(hexstr):
 #while True:
 # Accelerometer
 child.sendline("char-write-req 0x0011 0100 -listen")
-while True:
-    child.expect("Notification handle = 0x0010 value: ", timeout=10)
-    child.expect("\r\n", timeout=10)
-    print("Value: "),
-    print(child.before),
-    #print(hexStrToInt(child.before[0:5]))
+#while True:
+#    child.expect("Notification handle = 0x0010 value: ", timeout=10)
+ #   child.expect("\r\n", timeout=10)
+  #  print("Value: "),
+  #  print(child.before),
+  # #print(hexStrToInt(child.before[0:5]))
+  # print("\r\nblu")
+
+
+
