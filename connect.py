@@ -7,24 +7,26 @@ class Devices:
   def __init__(self):
     self.connectedDevs = []
     self.numDevices = 0
-
-    for i in range(len(DEVICES)):
-      connected = self.connect(DEVICES[i], i)
-
-      if connected:
-        self.numDevices += 1
-
-    if self.numDevices == 0:
-      print("No Devices Found")
-
-    else:
-      print("Connect to "),
-      print(self.numDevices),
-      print(" device(s)")
-
     return
 
-  def connect(self, MACaddress, index):
+  def connectDevices(self):  
+    for i in range(len(DEVICES)):
+        connected = self.connectSingle(DEVICES[i], i)
+
+        if connected:
+          self.numDevices += 1
+
+      if self.numDevices == 0:
+        print("No Devices Found")
+
+      else:
+        print("Connect to "),
+        print(self.numDevices),
+        print(" device(s)")
+
+    return self.connectedDevs
+
+  def connectSingle(self, MACaddress, index):
     command = "sudo gatttool -i hci0 -t random  -b " + MACaddress + " -I"
     self.connectedDevs.append(pexpect.spawn(command))
     self.connectedDevs[-1].sendline("connect")

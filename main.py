@@ -16,12 +16,13 @@ def buttonISR(channel):
 	global timeOut
 	global DEVICES
 
-	Devices()
+	BLEdevs = Devices()
+	connectedDevs = BLEdevs.connectDevices()
 	connect = 1 
 	GPIO.output(ledPin, GPIO.HIGH)
 	time.sleep(5)
 	timeOut = 1
-	readFrom(0)
+	readFrom(connectedDevs[0])  # reading from the first connected device
 
 
 # Pin Setup:
