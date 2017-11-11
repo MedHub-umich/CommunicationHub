@@ -1,4 +1,5 @@
-from connect import Device
+from connect import Devices
+from connect import readFrom
 
 # External module imports
 import RPi.GPIO as GPIO
@@ -13,13 +14,14 @@ ledState = False
 def buttonISR(channel):
 	global connect
 	global timeOut
-	#availableDevices = scan()
-	BLEdev1 = Device("D9:04:7D:17:F7:80")
+	global DEVICES
+
+	Devices()
 	connect = 1 
 	GPIO.output(ledPin, GPIO.HIGH)
 	time.sleep(5)
 	timeOut = 1
-	BLEdev1.readFrom()
+	readFrom(0)
 
 
 # Pin Setup:
