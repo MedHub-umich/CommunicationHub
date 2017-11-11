@@ -1,23 +1,40 @@
 import pexpect
 import time
 
-DEVICES = ["D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B"]
+DEVICES = ["D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E"]
 
 class Device:
     def __init__(self, address):
         self.MACaddress = address
-        self.deviceHandle = connect(address)
+	self.numDevice = 0
+
+	try:
+            self.deviceHandle = connect(DEVICES[0])
+	    self.numDevices += 1
+	    break
+	try:
+	    self.deviceHandle2 = connect(DEVICES[1])
+	    self.numDevices += 1
+            break
+	try:
+	    self.deviceHandle3 = connect(DEVICES[2])
+	    self.numDevices += 1
+    	    break
+
+        except NoConnection:
+ 	    print("No Devices Found")
 
     def readFrom(self):
+
       print("reading from"),
-      print(MACaddress)
+      print(self.MACaddress)
       self.deviceHandle.sendline("char-write-req 0x0011 0100 -listen")
       
       while True:
-       child.expect("Notification handle = 0x0010 value: ", timeout=10)
-       child.expect("\r\n", timeout=10)
+       self.deviceHandle.expect("Notification handle = 0x0010 value: ", timeout=10)
+       self.deviceHandle.expect("\r\n", timeout=10)
        print("Value: "),
-       print(child.before),
+       print(self.deviceHandle.before),
        print("\n")
 
 
