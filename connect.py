@@ -13,13 +13,13 @@ class Devices:
     for i in range(len(DEVICES)):
         connected = self.connectSingle(DEVICES[i], i)
 
-        if connected:
+    	if connected:
           self.numDevices += 1
 
-      if self.numDevices == 0:
+    if (self.numDevices == 0):
         print("No Devices Found")
 
-      else:
+    else:
         print("Connect to "),
         print(self.numDevices),
         print(" device(s)")
@@ -43,16 +43,14 @@ class Devices:
     return connected
 
  	    
-def readFrom(index):
-    print("reading from"),
-    print(self.MACaddress)
-    self.connectedDevs[index].sendline("char-write-req 0x0011 0100 -listen")
+def readFrom(devHandle):
+    devHandle.sendline("char-write-req 0x0011 0100 -listen")
     
     while True:
-        self.connectedDevs[index].expect("Notification handle = 0x0010 value: ", timeout=10)
-        self.connectedDevs[index].expect("\r\n", timeout=10)
+        devHandle.expect("Notification handle = 0x0010 value: ", timeout=10)
+        devHandle.expect("\r\n", timeout=10)
         print("Value: "),
-        print(self.connectedDevs[index].before),
+        print(devHandle.before),
         print("\n")
 
 
