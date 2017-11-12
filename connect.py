@@ -1,7 +1,7 @@
 import pexpect
 import time
 
-DEVICES = ["D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E"]
+DEVICES = ["D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51"]
 
 class Devices:
   def __init__(self):
@@ -32,7 +32,7 @@ class Devices:
     self.connectedDevs[-1].sendline("connect")
     
     try:
-        self.connectedDevs[-1].expect("Connection successful", timeout=5)
+        self.connectedDevs[-1].expect("Connection successful", timeout=1)
         connected = True
    
     except:
