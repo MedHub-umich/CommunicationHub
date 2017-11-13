@@ -15,3 +15,8 @@ Run the the bash script to automatically connect to the dev board with the yello
   - sudo gatttool -i hci0 -b <BLE_Address> -I  (example Yellow Taped Device has address D9:04:7D:17:F7:80) 
   - cha-write-req 0x0011 0100 -listen
   
+## Connecting the Pi to Internet in Lab
+  - In terminal type: 
+     sudo route del default
+     sudo route add default gw 10.160 26.81
+  - Open up chome
