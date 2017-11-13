@@ -17,6 +17,6 @@ Run the the bash script to automatically connect to the dev board with the yello
   
 ## Connecting the Pi to Internet in Lab
   - In terminal type: 
-     sudo route del default
-     sudo route add default gw 10.160 26.81
+     - sudo route del default
+     - sudo route add default gw 10.160 26.81
   - Open up chome
