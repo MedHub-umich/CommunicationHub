@@ -16,6 +16,8 @@ def buttonISR(channel):
 	global timeOut
 	global DEVICES
 
+	print("I'm interrupting!!")
+
 	BLEdevs = Devices()
 	connectedDevs = BLEdevs.connectDevices()
 	connect = 1 
