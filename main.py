@@ -17,8 +17,6 @@ def buttonISR(channel):
 	global timeOut
 	global DEVICES
 
-	print("I'm interrupting!!")
-
 	BLEdevs = Devices()
 	connectedDevs = BLEdevs.connectDevices()
 	connect = 1 
@@ -26,7 +24,7 @@ def buttonISR(channel):
 	time.sleep(5)
 	timeOut = 1
 	readFrom(connectedDevs[0])  # reading from the first connected device
-
+	writeTo(connectedDevs[0], 00020101)
 
 # Pin Setup:
 GPIO.setmode(GPIO.BCM) # Broadcom pin-numbering scheme

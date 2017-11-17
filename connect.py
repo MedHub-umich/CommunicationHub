@@ -54,7 +54,7 @@ def readFrom(devHandle):
         print("\n")
 
 def writeTo(devHandle, data):
-    command = "char-write-req 0x0019" + data
+    command = "char-write-req 0x0019 " + data
     devHandle.sendline(command)
     print("Write Successful")
 
