@@ -44,21 +44,27 @@ class Devices:
 
 def print2ByteFrom20Byte(devHandle):
 	num0 = int(devHandle.before[3:5]+devHandle.before[0:2],16)
-	#Msb0 = int(devHandle.before[3:5],16)
 	num1 = int(devHandle.before[9:11]+devHandle.before[6:8],16)
-	
 	num2 = int(devHandle.before[15:17]+devHandle.before[12:14],16)
 	num3 = int(devHandle.before[21:23]+devHandle.before[18:20],16)	
 	num4 = int(devHandle.before[27:29]+devHandle.before[24:26],16)
-	#print type(byte2)
-	print num4
-	print num3
-	print num2
-	print num1
+	num5 = int(devHandle.before[33:35]+devHandle.before[30:32],16)
+	num6 = int(devHandle.before[39:41]+devHandle.before[36:38],16)
+	num7 = int(devHandle.before[45:47]+devHandle.before[42:44],16)	
+	num8 = int(devHandle.before[51:53]+devHandle.before[48:50],16)	
+	num9 = int(devHandle.before[57:59]+devHandle.before[54:56],16)	
 	print num0
-	#print byte2
-	return	
- 	    
+	print num1
+	print num2
+	print num3
+	print num4
+	print num5
+	print num6
+	print num7
+	print num8
+	print num9 
+	return
+
 def readFrom(devHandle):
     devHandle.sendline("char-write-req 0x0011 0100 -listen")
     
@@ -69,6 +75,7 @@ def readFrom(devHandle):
         #print(devHandle.before[0:5])
         print2ByteFrom20Byte(devHandle)
 
-
+def writeTo(devHandle):
+	devHandle.sendline()
 
 
