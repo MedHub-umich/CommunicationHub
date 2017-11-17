@@ -1,5 +1,6 @@
 from connect import Devices
 from connect import readFrom
+import sys
 
 # External module imports
 import RPi.GPIO as GPIO

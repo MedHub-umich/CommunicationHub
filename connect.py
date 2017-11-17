@@ -32,7 +32,7 @@ class Devices:
     self.connectedDevs[-1].sendline("connect")
     
     try:
-        self.connectedDevs[-1].expect("Connection successful", timeout=1)
+        self.connectedDevs[-1].expect("Connection successful", timeout=2)
         connected = True
    
     except:
@@ -53,6 +53,10 @@ def readFrom(devHandle):
         print(devHandle.before),
         print("\n")
 
+def writeTo(devHandle, data):
+    command = "char-write-req 0x0019" + data
+    devHandle.sendline(command)
+    print("Write Successful")
 
 
 
