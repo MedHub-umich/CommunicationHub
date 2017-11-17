@@ -42,6 +42,22 @@ class Devices:
         connected = False
     return connected
 
+def print2ByteFrom20Byte(devHandle):
+	num0 = int(devHandle.before[3:5]+devHandle.before[0:2],16)
+	#Msb0 = int(devHandle.before[3:5],16)
+	num1 = int(devHandle.before[9:11]+devHandle.before[6:8],16)
+	
+	num2 = int(devHandle.before[15:17]+devHandle.before[12:14],16)
+	num3 = int(devHandle.before[21:23]+devHandle.before[18:20],16)	
+	num4 = int(devHandle.before[27:29]+devHandle.before[24:26],16)
+	#print type(byte2)
+	print num4
+	print num3
+	print num2
+	print num1
+	print num0
+	#print byte2
+	return	
  	    
 def readFrom(devHandle):
     devHandle.sendline("char-write-req 0x0011 0100 -listen")
@@ -49,9 +65,9 @@ def readFrom(devHandle):
     while True:
         devHandle.expect("Notification handle = 0x0010 value: ", timeout=10)
         devHandle.expect("\r\n", timeout=10)
-        print("Value: "),
-        print(devHandle.before),
-        print("\n")
+        #print("Value: "),
+        #print(devHandle.before[0:5])
+        print2ByteFrom20Byte(devHandle)
 
 
 
