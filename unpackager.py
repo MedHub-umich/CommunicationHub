@@ -40,8 +40,13 @@ class Unpackager:
                 self.state = States.WAITING_FOR_END
             elif (self.state == States.WAITING_FOR_END):
                 print("Ingesting new packet for things")
+                self.buffer.append(byteHex)
+                self.sizeLeft -= 1
             else:
                 print ("improper or unhandled state of: ", self.state)
+            
+            if (self.packetDone()):
+                print("Packet was completed")
 
     def packetDone(self):
         return self.sizeLeft == 0
