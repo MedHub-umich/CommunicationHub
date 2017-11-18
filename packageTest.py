@@ -1,5 +1,12 @@
 from unpackager import Unpackager
 
-unpack = Unpackager()
-t1 = 'ac 23 11 00'
-unpack.ingest(t1)
+testStrings = [
+    "f000", #no size
+    "f00100", #size 1
+    "f034", #size52
+]
+
+for test in testStrings:
+    unpack = Unpackager()
+    print("Testing: ", test)
+    unpack.ingest(test)
