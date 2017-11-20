@@ -10,25 +10,26 @@ def writeToThread(devHandle):
 	writeTo(devHandle, alert)
 
 def main():
-	global alert = 00020000
+	global alert
 
 	threads = []
 
 	BLEdevs = Devices()
 
-	connectedDevs = devices.connectDevices()
+	connectedDevs = BLEdevs.connectDevices()
 	while(len(connectedDevs) == 0):
-		connectedDevs = devices.connectDevices()
-
-	for i in connectDevs:  # may have bug off by one
-		threads.append(threading.Thread(name = "dev"+i, target = readFromThread, args = connectedDevs[i])) #possible bug
+		connectedDevs = BLEdevs.connectDevices()
+	
+	i = 0
+	for i, device in connectedDevs:  # may have bug off by one
+		threads.append(threading.Thread(target = readFromThread, args = device)) #possible bug
 		threads[i].setDaemon(True)
 		threads[i].start()
 
 	#possibly have to manually reset i?
-
-	for i in connectedDevs:
-		threads.append(threading.Thread(name = "dev"+i, target = writeToThread, args = connectedDevs[i]))
+	
+	for i,device in connectedDevs:
+		threads.append(threading.Thread(target = writeToThread, args = device))
 		threads[i].setDaemon(True)
 		threads[i].start()
 
@@ -38,7 +39,7 @@ def main():
 		alert = alertValues[j]
 		time.sleep(5)
 
-
+main()
 
 
 
