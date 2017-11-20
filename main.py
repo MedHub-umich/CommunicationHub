@@ -36,8 +36,10 @@ GPIO.output(ledPin, GPIO.LOW)
 
     
 GPIO.add_event_detect(17, GPIO.FALLING, callback = buttonISR, bouncetime=300)
-print("Here we go! Press CTRL+C to exit")
+print("Here we go!")
 try:
+
+	# TODO: Fix so light only flashes after button is pushed until connected
     while 1:
 	    if (connect == 0 and timeOut == 0):
 		ledState = not ledState

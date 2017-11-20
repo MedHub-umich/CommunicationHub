@@ -7,7 +7,7 @@ connectedDevs = devices.connectDevices()
 while(len(connectedDevs) == 0):
 	connectedDevs = devices.connectDevices()
 
-readFrom(connectedDevs[0])
+# readFrom(connectedDevs[0])
 
 writeTo(connectedDevs[0], "00020101")
 time.sleep(5)

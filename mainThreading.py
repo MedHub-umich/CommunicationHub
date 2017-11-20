@@ -1,38 +1,45 @@
 import threading
 import time
+from connect import Devices, readFrom, writeTo
 
-class Device:
-	def __init__(self, MACaddress, devHandle):
-		self.MACaddress = MACaddress
-		self.devHandle = devHandle
+def readFromThread(devHandle):
+	readFrom(devHandle)
 
-def threadTest(device):
-	print device.MACaddress,
-	print "\n"
-
-def threadTest2(device):
-	print device.devHandle,
-	print "\n"
-
-def infiniteThread():
-	while True:
-		print "still running!"
-
-device1 = Device("22:22:22:22", "this is a handle")
-device2 = Device("11:11:11:11", "this is another handle")
-
-thread1 = threading.Thread(name = "test1", target=threadTest, args=(device1,))
-thread1.start()
-print "first thread started"
+def writeToThread(devHandle):
+	time.sleep(5)
+	writeTo(devHandle, alert)
 
 
+global alert = 00020000
 
-thread3 = threading.Thread(name = "test3", target=infiniteThread)
-thread3.setDaemon(True)
-thread3.start()
+threads = []
 
-thread2 = threading.Thread(name = "test2", target=threadTest2, args=(device2,))
-thread2.start()
-print "second thread started"
+BLEdevs = Devices()
 
-time.sleep(1)
+connectedDevs = devices.connectDevices()
+while(len(connectedDevs) == 0):
+	connectedDevs = devices.connectDevices()
+
+for i in connectDevs:  # may have bug off by one
+	threads.append(threading.Thread(name = "dev"+i, target = readFromThread, args = connectedDevs[i])) #possible bug
+	threads[i].setDaemon(True)
+	threads[i].start()
+
+#possibly have to manually reset i?
+
+for i in connectedDevs:
+	threads.append(threading.Thread(name = "dev"+i, target = writeToThread, args = connectedDevs[i]))
+	threads[i].setDaemon(True)
+	threads[i].start()
+
+alertValues = [00020000, 00020100, 00020101, 00020001]
+
+for j in alertValues:
+	alert = alertValues[j]
+	time.sleep(5)
+
+
+
+
+
+
