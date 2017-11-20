@@ -12,6 +12,7 @@ butPin = 17 # Broadcom pin 17 (P1 pin 11)
 connect = 0
 timeOut = 0
 ledState = False
+
 def buttonISR(channel):
 	global connect
 	global timeOut
