@@ -1,3 +1,4 @@
 .vscode/settings.json
 *.pyc
 unpackager.pyc
+crcmod-1.7/
