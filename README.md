@@ -14,6 +14,12 @@ Run the the bash script to automatically connect to the dev board with the yello
   - Install bluez via sudo apt-get install bluez
   - sudo gatttool -i hci0 -b <BLE_Address> -I  (example Yellow Taped Device has address D9:04:7D:17:F7:80) 
   - cha-write-req 0x0011 0100 -listen
+
+## Setting up the CRC tool
+  - Untar the crcmod tar file
+  - Navigate into the folder from the untarring
+  - run python setup.py install
+  Reference this: https://pypi.python.org/pypi/crcmod
   
 ## Connecting the Pi to Internet in Lab
   - In terminal type: 
