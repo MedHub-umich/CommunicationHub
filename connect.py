@@ -7,6 +7,7 @@ class Devices:
   def __init__(self):
     self.connectedDevs = []
     self.numDevices = 0
+    self.parser = Unpackager() # TODO: Have this follow wherever MAC address is stored
     return
 
   def connectDevices(self):  
@@ -49,9 +50,12 @@ def readFrom(devHandle):
     while True:
         devHandle.expect("Notification handle = 0x0010 value: ", timeout=10)
         devHandle.expect("\r\n", timeout=10)
-        print("Value: "),
+        print("Processing:"),
         print(devHandle.before),
         print("\n")
+        devHandle.parser.unpackage(devHandle.before)
+
+
 
 
 
