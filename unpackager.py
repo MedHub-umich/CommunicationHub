@@ -14,12 +14,7 @@ class States:
 class Unpackager:
     START_BYTE = '\xf0'
     def __init__(self):
-        self.buffer = BitArray()
-        self.state = States.WAITING_FOR_START
-        self.size = 0
-        self.data = BitArray()
-        self.packetsIngested = 0
-        self.checksum = 0
+        self.resetPackager()
         BitArray.bytealigned = True
         self.crcfunc = crcmod.mkCrcFun(0x11021, initCrc=0x1d0f, rev=False, xorOut=0x0000)
     
@@ -31,10 +26,15 @@ class Unpackager:
             print "Still waiting for EOP"
         elif(self.ingest(message) == PACKAGE_COMPLETE):
             print "Package was completed, please handle"
-        # React to shit
-        pass
     
-    
+    def resetPackager(self):
+        self.buffer = BitArray()
+        self.state = States.WAITING_FOR_START
+        self.size = 0
+        self.data = BitArray()
+        self.packetsIngested = 0
+        self.checksum = 0
+
     def ingest(self, message):
         bitMessage = BitArray(hex=message)
         for byte in bitMessage.bytes:
