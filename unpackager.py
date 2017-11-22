@@ -46,13 +46,17 @@ class Unpackager:
                     self.buffer.append(byteHex)
                     self.state = States.WAITING_FOR_SIZE
                 else:
-                    print("found byte, but is not start so discarding")                    
+                    print("found byte, but is not start so discarding")                
 
             elif (self.state == States.WAITING_FOR_SIZE):
                 self.buffer.append(byteHex)
                 self.size = ord(byte)
                 self.packetsIngested = 0
                 self.state = States.WAITING_FOR_END
+                #check that size is 0
+                if (self.size == 0):
+                    print("Invalid package (size invalid), discarding")
+                    self.resetPackager()
 
             elif (self.state == States.WAITING_FOR_END):
                 self.buffer.append(byteHex)
@@ -66,7 +70,7 @@ class Unpackager:
             elif (self.state == States.WAITING_FOR_CHECKSUMBYTE2):
                 self.checksum += ord(byte)
                 self.buffer.append(byteHex)
-                self.state = self.handleFullPacket()
+                self.handleFullPacket()
             else:
                 print ("improper or unhandled state of: ", self.state)
             
@@ -81,11 +85,10 @@ class Unpackager:
 
     def handleFullPacket(self):
         #TODO: Call actual typing and handling here
-        if(self.calculateCRC()):
-            return States.PACKEGE_COMPLETE
-        else :
-            return States.PACKAGE_FAILED
-
+        if(self.calculateCRC() and self.size != 0):
+            self.state = States.PACKEGE_COMPLETE
+            Contextualizer.contextualize(self)
+        
         self.resetPackager()
 
     def calculateCRC(self):

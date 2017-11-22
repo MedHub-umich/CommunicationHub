@@ -1,7 +1,55 @@
-from unpackager import Unpackager
+class PacketTypes:
+    HEART_RATE = 0
+    ECG = 1
+    BREATHING_RATE = 2
+    TEMPERATURE = 4
+
 
 class Contextualizer:
+    MIN_PACKET_SIZE = 6
+
+    START_INDEX = 0
+    SIZE_INDEX = 1
+    TIME_START_INDEX = 2
+    TIME_END_EXCLUSIVE = 4
+    SEQUENCE_INDEX = 4
+    RESERVED_START_INDEX = 5
+    RESERVED_END_EXCLUSIVE = 7
+    TYPE_INDEX = 7
+    DATA_START_INDEX = 8
 
     @staticmethod
-    def contextualize(self, unpacker):
-        pass
+    def contextualize(unpacker):
+        packBytes = unpacker.buffer.bytes
+        if unpacker.size < Contextualizer.MIN_PACKET_SIZE:
+            # invalid packet size, return
+            return
+
+        typeNum = ord(packBytes[Contextualizer.TYPE_INDEX])
+
+        #router
+        if (typeNum == PacketTypes.HEART_RATE):
+            Contextualizer.handle_heart_rate(unpacker)
+        elif (typeNum == PacketTypes.ECG):
+            Contextualizer.handle_ecg(unpacker)
+        elif (typeNum == PacketTypes.BREATHING_RATE):
+            Contextualizer.handle_breathing_rate(unpacker)
+        elif (typeNum == PacketTypes.TEMPERATURE):
+            Contextualizer.handle_temperature(unpacker)
+
+
+    @staticmethod
+    def handle_heart_rate(unpacker):
+        print("In heart rate!")
+    
+    @staticmethod
+    def handle_ecg(unpacker):
+        print("In ecg!")
+    
+    @staticmethod
+    def handle_breathing_rate(unpacker):
+        print("In breathinG rate!")
+    
+    @staticmethod
+    def handle_temperature(unpacker):
+        print("In temperature!")
