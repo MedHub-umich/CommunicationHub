@@ -1,4 +1,5 @@
 from bitstring import BitArray, BitStream
+from contextualizer import Contextualizer
 import crcmod
 
 # Basically enum for stats
@@ -84,6 +85,8 @@ class Unpackager:
             return States.PACKEGE_COMPLETE
         else :
             return States.PACKAGE_FAILED
+
+        self.resetPackager()
 
     def calculateCRC(self):
         return self.crcfunc(self.data.bytes) == self.checksum
