@@ -1,5 +1,6 @@
 import pexpect
 import time
+from unpackager import Unpackager
 
 DEVICES = ["D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51"]
 
