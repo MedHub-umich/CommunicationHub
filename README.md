@@ -20,6 +20,9 @@ Run the the bash script to automatically connect to the dev board with the yello
   - Navigate into the folder from the untarring
   - run python setup.py install
   Reference this: https://pypi.python.org/pypi/crcmod
+
+## Setting up bitstring (needed for unpack)
+  - run pip install bistring
   
 ## Connecting the Pi to Internet in Lab
   - In terminal type: 
