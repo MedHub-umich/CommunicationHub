@@ -21,11 +21,11 @@ class Unpackager:
     
     def unpackage(self, message):
         # Ingest with context
-        if (self.ingest(message) == PACKAGE_FAILED):
+        if (self.ingest(message) == States.PACKAGE_FAILED):
             print "Discarding packet for whatever reason, SALT THE EARTH"
-        elif(self.ingest(message) < PACKAGE_COMPLETE):
+        elif(self.ingest(message) < States.PACKAGE_COMPLETE):
             print "Still waiting for EOP"
-        elif(self.ingest(message) == PACKAGE_COMPLETE):
+        elif(self.ingest(message) == States.PACKAGE_COMPLETE):
             print "Package was completed, please handle"
     
     def resetPackager(self):
