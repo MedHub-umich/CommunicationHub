@@ -21,12 +21,13 @@ class Unpackager:
     
     def unpackage(self, message):
         # Ingest with context
-        if (self.ingest(message) == States.PACKAGE_FAILED):
-            print "Discarding packet for whatever reason, SALT THE EARTH"
-        elif(self.ingest(message) < States.PACKAGE_COMPLETE):
-            print "Still waiting for EOP"
-        elif(self.ingest(message) == States.PACKAGE_COMPLETE):
-            print "Package was completed, please handle"
+        response = self.ingest(message)
+        #if (response == States.PACKAGE_FAILED):
+         #   print "Discarding packet for whatever reason, SALT THE EARTH"
+        #elif(response < States.PACKAGE_COMPLETE):
+         #   print "Still waiting for EOP"
+        #elif(response  == States.PACKAGE_COMPLETE):
+          #  print "Package was completed, please handle"
     
     def resetPackager(self):
         self.buffer = BitArray()
@@ -40,10 +41,12 @@ class Unpackager:
         bitMessage = BitArray(hex=message)
         for byte in bitMessage.bytes:
             byteHex = '0x' + byte.encode("hex")
+            print(byteHex, ": ", self.state)
             if (self.state == States.WAITING_FOR_START):
                 if byte == Unpackager.START_BYTE:
                     # loop through bits and check for start
                     self.buffer.append(byteHex)
+                    print("Found start byte")
                     self.state = States.WAITING_FOR_SIZE
                 else:
                     print("found byte, but is not start so discarding")                
@@ -51,6 +54,7 @@ class Unpackager:
             elif (self.state == States.WAITING_FOR_SIZE):
                 self.buffer.append(byteHex)
                 self.size = ord(byte)
+                print(self.size)
                 self.packetsIngested = 0
                 self.state = States.WAITING_FOR_END
                 #check that size is 0
@@ -62,21 +66,21 @@ class Unpackager:
                 self.buffer.append(byteHex)
                 self.data.append(byteHex)
                 self.packetsIngested += 1
-                self.state
+                # check if we've reached the "end" of a packet
+                if (self.allDataRecieved()):
+                    self.state = States.WAITING_FOR_CHECKSUMBYTE1
             elif (self.state == States.WAITING_FOR_CHECKSUMBYTE1):
-                self.checksum = ord(byte) << 8
+                self.checksum = ord(byte) 
                 self.buffer.append(byteHex)
                 self.state = States.WAITING_FOR_CHECKSUMBYTE2
             elif (self.state == States.WAITING_FOR_CHECKSUMBYTE2):
-                self.checksum += ord(byte)
+                self.checksum += ord(byte) << 8
                 self.buffer.append(byteHex)
                 self.handleFullPacket()
             else:
                 print ("improper or unhandled state of: ", self.state)
             
-            # check if we've reached the "end" of a packet
-            if (self.allDataRecieved()):
-                self.state = States.WAITING_FOR_CHECKSUMBYTE1
+            
         # if we are here, return 1 for not done yet
         return self.state
 
@@ -85,9 +89,12 @@ class Unpackager:
 
     def handleFullPacket(self):
         #TODO: Call actual typing and handling here
+        print(self.crcfunc(self.data.bytes))
         if(self.calculateCRC() and self.size != 0):
             self.state = States.PACKAGE_COMPLETE
             Contextualizer.contextualize(self)
+        else:
+            print("failed")
         
         self.resetPackager()
 

@@ -1,8 +1,9 @@
 class PacketTypes:
-    HEART_RATE = 0
-    ECG = 1
-    BREATHING_RATE = 2
-    TEMPERATURE = 4
+    HEART_RATE = 3
+    ECG = 2
+    BREATHING_RATE = 4
+    TEMPERATURE = 5
+    BLOOD_PRESSURE = 1
 
 
 class Contextualizer:
@@ -36,6 +37,8 @@ class Contextualizer:
             Contextualizer.handle_breathing_rate(unpacker)
         elif (typeNum == PacketTypes.TEMPERATURE):
             Contextualizer.handle_temperature(unpacker)
+        elif (typeNum == PacketTypes.BLOOD_PRESSURE):
+            Contextualizer.handle_blood_pressure(unpacker)
 
 
     @staticmethod
@@ -53,3 +56,7 @@ class Contextualizer:
     @staticmethod
     def handle_temperature(unpacker):
         print("In temperature!")
+
+    @staticmethod
+    def handle_blood_pressure(unpacker):
+        print("In blood pressure!")
