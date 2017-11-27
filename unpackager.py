@@ -9,7 +9,7 @@ class States:
     WAITING_FOR_END = 2
     WAITING_FOR_CHECKSUMBYTE1 = 3
     WAITING_FOR_CHECKSUMBYTE2 = 4
-    PACKEGE_COMPLETE = 5
+    PACKAGE_COMPLETE = 5
     PACKAGE_FAILED = -1
 
 class Unpackager:
@@ -86,7 +86,7 @@ class Unpackager:
     def handleFullPacket(self):
         #TODO: Call actual typing and handling here
         if(self.calculateCRC() and self.size != 0):
-            self.state = States.PACKEGE_COMPLETE
+            self.state = States.PACKAGE_COMPLETE
             Contextualizer.contextualize(self)
         
         self.resetPackager()
