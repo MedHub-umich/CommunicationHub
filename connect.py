@@ -6,7 +6,12 @@ DEVICES = ["D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B
 
 parser = Unpackager() # TODO: Have this follow wherever MAC address is stored
 
-class Devices:
+class Device:
+    def __init__(self, MACaddress, devHandle):
+        self.MACaddress = MACaddress
+        self.devHandle = devHandle
+
+class DeviceContainer:
   def __init__(self):
     self.connectedDevs = []
     self.numDevices = 0
@@ -31,11 +36,11 @@ class Devices:
 
   def connectSingle(self, MACaddress, index):
     command = "sudo gatttool -i hci0 -t random  -b " + MACaddress + " -I"
-    self.connectedDevs.append(pexpect.spawn(command))
-    self.connectedDevs[-1].sendline("connect")
+    self.connectedDevs.append(Device(MACaddress, pexpect.spawn(command)))
+    self.connectedDevs[-1].devHandle.sendline("connect")
     
     try:
-        self.connectedDevs[-1].expect("Connection successful", timeout=1)
+        self.connectedDevs[-1].devHandle.expect("Connection successful", timeout=2)
         connected = True
    
     except:
@@ -48,6 +53,7 @@ class Devices:
  	    
 def readFrom(devHandle):
     devHandle.sendline("char-write-req 0x0011 0100 -listen")
+    print("Reading...")
     
     while True:
         devHandle.expect("Notification handle = 0x0010 value: ", timeout=10)
@@ -59,6 +65,10 @@ def readFrom(devHandle):
 
 
 
+def writeTo(devHandle, data):
+    command = "char-write-req 0x0019 " + data
+    devHandle.sendline(command)
+    print("Write Successful")
 
 
 
