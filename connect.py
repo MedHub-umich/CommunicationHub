@@ -45,13 +45,14 @@ class Devices:
  	    
 def readFrom(devHandle):
     devHandle.sendline("char-write-req 0x0011 0100 -listen")
+    print("Reading...")
     
     while True:
         devHandle.expect("Notification handle = 0x0010 value: ", timeout=10)
         devHandle.expect("\r\n", timeout=10)
         print("Value: "),
         print(devHandle.before),
-        print("\n")
+        #print("\n")
 
 def writeTo(devHandle, data):
     command = "char-write-req 0x0019 " + data
