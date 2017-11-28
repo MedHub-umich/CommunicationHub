@@ -1,6 +1,12 @@
-from threads import read, write, connect
+from threads import *
+import time
 
 connectedDevs = connect()
-read(connectedDevs[0])
-write(connectedDevs[0],  "00020101")
+BLEread(connectedDevs[0])
+
+time.sleep(2)
+
+BLEwrite(connectedDevs[0],  "00020101")
+
+time.sleep(2)
 

@@ -22,17 +22,21 @@ def connect():
 	return connectedDevs
 
 
-def read(device):
+def BLEread(device):
+	global threads
+	global numThreads
 	threads.append(threading.Thread(target=readFromThread, args=(device.devHandle,)))
-	numThreads = numThreads + 1
-	threads[numThreads].setDaemon(True)
-	threads[numThreads].start() 
-
-def write(device, value):
-	threads.append(threading.Thread(target=writeToThread, args=(device.devHandle, "00020101")))
-	numThreads = numThreads + 1
 	threads[numThreads].setDaemon(True)
 	threads[numThreads].start()
+	numThreads = numThreads + 1 
+
+def BLEwrite(device, value):
+	global threads
+	global numThreads
+	threads.append(threading.Thread(target=writeToThread, args=(device.devHandle, "00020101")))
+	threads[numThreads].setDaemon(True)
+	threads[numThreads].start()
+	numThreads = numThreads + 1
 
 
 
