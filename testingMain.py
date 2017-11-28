@@ -21,15 +21,15 @@ threads.append(threading.Thread(target=readFromThread, args=(connectedDevs[0].de
 threads[0].setDaemon(True)
 threads[0].start() 
 
-#threads.append(threading.Thread(target=writeToThread, args=(connectedDevs[0], "00020101")))
-#threads[0].setDaemon(True)
-#threads[0].start()
-
-time.sleep(5)
-
-threads.append(threading.Thread(target=writeToThread, args=(connectedDevs[0].devHandle, "00020101")))
+threads.append(threading.Thread(target=writeToThread, args=(connectedDevs[1].devHandle, "00020101")))
 threads[1].setDaemon(True)
 threads[1].start()
 
+time.sleep(2)
 
-time.sleep(5)
+threads.append(threading.Thread(target=writeToThread, args=(connectedDevs[0].devHandle, "00020101")))
+threads[2].setDaemon(True)
+threads[2].start()
+
+
+time.sleep(2)
