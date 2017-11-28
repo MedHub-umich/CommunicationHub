@@ -4,12 +4,13 @@ from unpackager import Unpackager
 
 DEVICES = ["D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51"]
 
-parser = Unpackager() # TODO: Have this follow wherever MAC address is stored
+# parser = Unpackager() # TODO: Have this follow wherever MAC address is stored
 
 class Device:
     def __init__(self, MACaddress, devHandle):
         self.MACaddress = MACaddress
         self.devHandle = devHandle
+        self.parser = Unpackager()
 
 class DeviceContainer:
   def __init__(self):
@@ -61,7 +62,7 @@ def readFrom(devHandle):
         print("Processing:"),
         print(devHandle.before),
         print("\n")
-        parser.unpackage(devHandle.before)
+        self.parser.unpackage(devHandle.before)
 
 
 
