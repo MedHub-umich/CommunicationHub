@@ -1,6 +1,6 @@
 import threading
 import time
-from connect import Devices, readFrom, writeTo
+from connect import DeviceContainer, readFrom, writeTo
 
 def readFromThread(devHandle):
 	readFrom(devHandle)
