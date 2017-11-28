@@ -18,11 +18,11 @@ Run the the bash script to automatically connect to the dev board with the yello
 ## Setting up the CRC tool
   - Untar the crcmod tar file
   - Navigate into the folder from the untarring
-  - run python setup.py install
+  - run `python setup.py install`
   Reference this: https://pypi.python.org/pypi/crcmod
 
 ## Setting up bitstring (needed for unpack)
-  - run pip install bistring
+  - run `pip install bistring`
   
 ## Connecting the Pi to Internet in Lab
   - In terminal type: 

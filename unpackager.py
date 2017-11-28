@@ -14,8 +14,9 @@ class States:
 
 class Unpackager:
     START_BYTE = '\xf0'
-    def __init__(self):
+    def __init__(self, MAC_ADDRESS):
         self.resetPackager()
+        self.MAC_ADDRESS = MAC_ADDRESS
         BitArray.bytealigned = True
         self.crcfunc = crcmod.mkCrcFun(0x11021, initCrc=0x1d0f, rev=False, xorOut=0x0000)
     

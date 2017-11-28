@@ -8,7 +8,7 @@ class Device:
     def __init__(self, MACaddress, devHandle):
         self.MACaddress = MACaddress
         self.devHandle = devHandle
-        self.parser = Unpackager()
+        self.parser = Unpackager(MACaddress)
 
 class DeviceContainer:
   def __init__(self):
