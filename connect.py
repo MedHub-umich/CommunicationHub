@@ -52,7 +52,7 @@ def readFrom(devHandle):
         devHandle.expect("\r\n", timeout=10)
         print("Value: "),
         print(devHandle.before),
-        #print("\n")
+        print("\n")
 
 def writeTo(devHandle, data):
     command = "char-write-req 0x0019 " + data
