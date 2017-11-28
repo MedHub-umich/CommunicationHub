@@ -3,7 +3,12 @@ import time
 
 DEVICES = ["D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51"]
 
-class Devices:
+class Device:
+    def __init__(self, MACaddress, devHandle):
+        self.MACaddress = MACaddress;
+        self.devHandle = devHandle;
+
+class DeviceContainer:
   def __init__(self):
     self.connectedDevs = []
     self.numDevices = 0
@@ -28,11 +33,11 @@ class Devices:
 
   def connectSingle(self, MACaddress, index):
     command = "sudo gatttool -i hci0 -t random  -b " + MACaddress + " -I"
-    self.connectedDevs.append(pexpect.spawn(command))
-    self.connectedDevs[-1].sendline("connect")
+    self.connectedDevs.append(Device(MACaddress, pexpect.spawn(command)))
+    self.connectedDevs[-1].devHandle.sendline("connect")
     
     try:
-        self.connectedDevs[-1].expect("Connection successful", timeout=2)
+        self.connectedDevs[-1].devHandle.expect("Connection successful", timeout=2)
         connected = True
    
     except:
