@@ -11,13 +11,11 @@ class Contextualizer:
 
     START_INDEX = 0
     SIZE_INDEX = 1
-    TIME_START_INDEX = 2
-    TIME_END_EXCLUSIVE = 4
-    SEQUENCE_INDEX = 4
-    RESERVED_START_INDEX = 5
-    RESERVED_END_EXCLUSIVE = 7
-    TYPE_INDEX = 7
-    DATA_START_INDEX = 8
+    SEQUENCE_INDEX = 2
+    RESERVED_START_INDEX = 3
+    RESERVED_END_EXCLUSIVE = 5
+    TYPE_INDEX = 5
+    DATA_START_INDEX = 6
 
     @staticmethod
     def contextualize(unpacker):

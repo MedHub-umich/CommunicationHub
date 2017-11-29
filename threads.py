@@ -4,6 +4,7 @@ from connect import DeviceContainer, readFrom, writeTo
 
 def readFromThread(devHandle):
 	readFrom(devHandle)
+	print('testing test')
 
 def writeToThread(devHandle, value):
 	time.sleep(2)
@@ -25,7 +26,7 @@ def connect():
 def BLEread(device):
 	global threads
 	global numThreads
-	threads.append(threading.Thread(target=readFromThread, args=(device.devHandle,)))
+	threads.append(threading.Thread(target=readFromThread, args=(device,)))
 	threads[numThreads].setDaemon(True)
 	threads[numThreads].start()
 	numThreads = numThreads + 1 

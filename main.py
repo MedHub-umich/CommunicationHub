@@ -8,5 +8,5 @@ time.sleep(2)
 
 BLEwrite(connectedDevs[0],  "00020101")
 
-time.sleep(2)
-
+while(1):
+	pass

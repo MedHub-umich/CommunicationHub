@@ -50,17 +50,25 @@ class DeviceContainer:
     return connected
 
  	    
-def readFrom(devHandle):
-    devHandle.sendline("char-write-req 0x0011 0100 -listen")
+def readFrom(device):
+    device.devHandle.sendline("char-write-req 0x0011 0100 -listen")
     print("Reading...")
     
     while True:
-        devHandle.expect("Notification handle = 0x0010 value: ", timeout=10)
-        devHandle.expect("\r\n", timeout=10)
-        print("Processing:"),
-        print(devHandle.before),
-        print("\n")
-        self.parser.unpackage(devHandle.before)
+        print('here')
+        i = device.devHandle.expect([pexpect.TIMEOUT, pexpect.EOF, "Notification handle = 0x0010 value: "], timeout=1)
+        if i == 0:
+            print('Timeout')
+        elif i == 1:
+            print('EOF')
+        else:
+            print('here1')
+            device.devHandle.expect("\r\n")
+            print('here2')
+            print("Processing:"),
+            print(device.devHandle.before),
+            print("\n")
+            device.parser.unpackage(device.devHandle.before)
 
 
 
