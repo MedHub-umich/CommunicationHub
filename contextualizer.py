@@ -1,3 +1,5 @@
+from datetime import datetime
+
 class PacketTypes:
     HEART_RATE = 3
     ECG = 2
@@ -42,19 +44,34 @@ class Contextualizer:
     @staticmethod
     def handle_heart_rate(unpacker):
         print("In heart rate!")
+        printInfo(unpacker)
     
     @staticmethod
     def handle_ecg(unpacker):
         print("In ecg!")
+        printInfo(unpacker)
     
     @staticmethod
     def handle_breathing_rate(unpacker):
         print("In breathinG rate!")
+        printInfo(unpacker)
     
     @staticmethod
     def handle_temperature(unpacker):
         print("In temperature!")
+        printInfo(unpacker)
 
     @staticmethod
     def handle_blood_pressure(unpacker):
         print("In blood pressure!")
+        printInfo(unpacker)
+
+    @staticmethod
+    def getTime():
+        return str(datetime.now())
+
+def printInfo(unpacker):
+    print("For device: "),
+    print (unpacker.MAC_ADDRESS),
+    print("the time is: "),
+    print(Contextualizer.getTime())
