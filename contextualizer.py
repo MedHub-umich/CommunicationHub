@@ -21,10 +21,10 @@ class Contextualizer:
 
     @staticmethod
     def contextualize(unpacker):
-        print("Here with type: "),
         packBytes = unpacker.buffer.bytes
         if unpacker.size < Contextualizer.MIN_PACKET_SIZE:
             # invalid packet size, return
+            print("MIN PACKET SIZE")
             return
 
         typeNum = ord(packBytes[Contextualizer.TYPE_INDEX])
