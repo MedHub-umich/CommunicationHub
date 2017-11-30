@@ -9,7 +9,7 @@ class PacketTypes:
 
 
 class Contextualizer:
-    MIN_PACKET_SIZE = 6
+    MIN_PACKET_SIZE = 4
 
     START_INDEX = 0
     SIZE_INDEX = 1
