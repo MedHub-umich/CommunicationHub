@@ -42,12 +42,11 @@ class Unpackager:
         bitMessage = BitArray(hex=message)
         for byte in bitMessage.bytes:
             byteHex = '0x' + byte.encode("hex")
-            print(byteHex, ": ", self.state)
             if (self.state == States.WAITING_FOR_START):
                 if byte == Unpackager.START_BYTE:
                     # loop through bits and check for start
                     self.buffer.append(byteHex)
-                    print("Found start byte")
+                    # print("Found start byte")
                     self.state = States.WAITING_FOR_SIZE
                 else:
                     print("found byte, but is not start so discarding")                
@@ -96,6 +95,7 @@ class Unpackager:
             Contextualizer.contextualize(self)
         else:
             print("failed")
+            print(self.buffer)
         
         self.resetPackager()
 
