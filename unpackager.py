@@ -96,7 +96,7 @@ class Unpackager:
             Contextualizer.contextualize(self)
         else:
             print("failed")
-            print(self.message)
+            print(message)
             print(self.buffer)
             
         
