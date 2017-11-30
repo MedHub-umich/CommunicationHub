@@ -49,6 +49,7 @@ class Unpackager:
                     # print("Found start byte")
                     self.state = States.WAITING_FOR_SIZE
                 else:
+                    print(byteHex)
                     print("found byte, but is not start so discarding")                
 
             elif (self.state == States.WAITING_FOR_SIZE):
