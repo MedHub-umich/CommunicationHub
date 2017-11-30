@@ -49,12 +49,13 @@ class Unpackager:
                     # print("Found start byte")
                     self.state = States.WAITING_FOR_SIZE
                 else:
+                    print(byteHex)
                     print("found byte, but is not start so discarding")                
 
             elif (self.state == States.WAITING_FOR_SIZE):
                 self.buffer.append(byteHex)
                 self.size = ord(byte)
-                print(self.size)
+                # print(self.size)
                 self.packetsIngested = 0
                 self.state = States.WAITING_FOR_END
                 #check that size is 0
@@ -89,7 +90,7 @@ class Unpackager:
 
     def handleFullPacket(self):
         #TODO: Call actual typing and handling here
-        print(self.crcfunc(self.data.bytes))
+        # print(self.crcfunc(self.data.bytes))
         if(self.calculateCRC() and self.size != 0):
             self.state = States.PACKAGE_COMPLETE
             Contextualizer.contextualize(self)
