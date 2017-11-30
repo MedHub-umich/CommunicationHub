@@ -29,16 +29,16 @@ class Contextualizer:
         typeNum = ord(packBytes[Contextualizer.TYPE_INDEX])
 
         #router
-        # if (typeNum == PacketTypes.HEART_RATE):
-        #     Contextualizer.handle_heart_rate(unpacker)
-        # elif (typeNum == PacketTypes.ECG):
-        #     Contextualizer.handle_ecg(unpacker)
-        # elif (typeNum == PacketTypes.BREATHING_RATE):
-        #     Contextualizer.handle_breathing_rate(unpacker)
-        # elif (typeNum == PacketTypes.TEMPERATURE):
-        #     Contextualizer.handle_temperature(unpacker)
-        # elif (typeNum == PacketTypes.BLOOD_PRESSURE):
-        #     Contextualizer.handle_blood_pressure(unpacker)
+        if (typeNum == PacketTypes.HEART_RATE):
+            Contextualizer.handle_heart_rate(unpacker)
+        elif (typeNum == PacketTypes.ECG):
+            Contextualizer.handle_ecg(unpacker)
+        elif (typeNum == PacketTypes.BREATHING_RATE):
+            Contextualizer.handle_breathing_rate(unpacker)
+        elif (typeNum == PacketTypes.TEMPERATURE):
+            Contextualizer.handle_temperature(unpacker)
+        elif (typeNum == PacketTypes.BLOOD_PRESSURE):
+            Contextualizer.handle_blood_pressure(unpacker)
 
 
     @staticmethod
@@ -71,8 +71,7 @@ class Contextualizer:
         return str(datetime.now())
 
 def printInfo(unpacker):
-    pass
-    print("For device: "),
-    print (unpacker.MAC_ADDRESS)
-    print("The time is: "),
-    print(Contextualizer.getTime())
+    # print("For device: "),
+    # print (unpacker.MAC_ADDRESS)
+    # print("The time is: "),
+    Contextualizer.getTime()
