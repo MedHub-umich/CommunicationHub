@@ -63,9 +63,9 @@ def readFrom(device):
             pass
         else:
             device.devHandle.expect("\r\n")
-            print("Processing:"),
-            print(device.devHandle.before),
-            print("\n")
+            # print("Processing:"),
+            # print(device.devHandle.before),
+            # print("\n")
             device.parser.unpackage(device.devHandle.before)
 
 
