@@ -55,6 +55,8 @@ def readFrom(device):
     print("Reading...")
     
     while True:
+        if device.handle == False:
+            quit()
         i = device.devHandle.expect([pexpect.TIMEOUT, pexpect.EOF, "Notification handle = 0x0010 value: "], timeout=10)
         if i == 0:
             pass
