@@ -55,7 +55,7 @@ class Contextualizer:
     
     @staticmethod
     def handle_breathing_rate(unpacker):
-        print("In breathinG rate!")
+        print("In breathing rate!")
         printInfo(unpacker)
     
     @staticmethod
