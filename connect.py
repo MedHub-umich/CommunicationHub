@@ -2,7 +2,7 @@ import pexpect
 import time
 from unpackager import Unpackager
 
-DEVICES = ["D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51"]
+DEVICES = ["D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51", "FA:9A:A3:54:EE:DA"]
 
 class Device:
     def __init__(self, MACaddress, devHandle):
@@ -55,7 +55,6 @@ def readFrom(device):
     print("Reading...")
     
     while True:
-        print('here')
         i = device.devHandle.expect([pexpect.TIMEOUT, pexpect.EOF, "Notification handle = 0x0010 value: "], timeout=10)
         if i == 0:
             pass
