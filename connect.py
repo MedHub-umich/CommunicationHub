@@ -55,7 +55,6 @@ def readFrom(device):
     print("Reading...")
     
     while True:
-        print('here')
         i = device.devHandle.expect([pexpect.TIMEOUT, pexpect.EOF, "Notification handle = 0x0010 value: "], timeout=10)
         if i == 0:
             pass
@@ -63,9 +62,9 @@ def readFrom(device):
             pass
         else:
             device.devHandle.expect("\r\n")
-            print("Processing:"),
-            print(device.devHandle.before),
-            print("\n")
+            # print("Processing:"),
+            # print(device.devHandle.before),
+            # print("\n")
             device.parser.unpackage(device.devHandle.before)
 
 

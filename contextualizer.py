@@ -72,7 +72,7 @@ class Contextualizer:
 
 def printInfo(unpacker):
     pass
-    # print("For device: "),
-    # print (unpacker.MAC_ADDRESS)
-    # print("The time is: "),
-    # print(Contextualizer.getTime())
+    print("For device: "),
+    print (unpacker.MAC_ADDRESS)
+    print("The time is: "),
+    print(Contextualizer.getTime())
