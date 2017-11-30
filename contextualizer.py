@@ -71,7 +71,8 @@ class Contextualizer:
         return str(datetime.now())
 
 def printInfo(unpacker):
-    print("For device: "),
-    print (unpacker.MAC_ADDRESS)
-    print("The time is: "),
-    print(Contextualizer.getTime())
+    pass
+    # print("For device: "),
+    # print (unpacker.MAC_ADDRESS)
+    # print("The time is: "),
+    # print(Contextualizer.getTime())
