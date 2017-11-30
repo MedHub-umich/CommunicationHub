@@ -100,7 +100,7 @@ class Unpackager:
         if(self.calculateCRC() and self.size != 0):
             self.state = States.PACKAGE_COMPLETE
             Contextualizer.contextualize(self)
-            print(self.buffer)
+            # print(self.buffer)
         else:
             print("failed")
             print(message)

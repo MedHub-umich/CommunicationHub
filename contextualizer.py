@@ -28,8 +28,6 @@ class Contextualizer:
             return
 
         typeNum = ord(packBytes[Contextualizer.TYPE_INDEX])
-        print("Here with type: "),
-        print(typeNum)
         #router
         if (typeNum == PacketTypes.HEART_RATE):
             Contextualizer.handle_heart_rate(unpacker)
