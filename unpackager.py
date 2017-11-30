@@ -37,8 +37,13 @@ class Unpackager:
         self.data = BitArray()
         self.packetsIngested = 0
         self.checksum = 0
+        self.handle = true
 
     def ingest(self, message):
+        if (self.handle == false):
+            print ("FAILED NOT WORKING FUCKINGN SHIT")
+            quit()
+        self.handle = false
         bitMessage = BitArray(hex=message)
         for byte in bitMessage.bytes:
             byteHex = '0x' + byte.encode("hex")
@@ -83,6 +88,7 @@ class Unpackager:
             
             
         # if we are here, return 1 for not done yet
+        self.handle = true
         return self.state
 
     def allDataRecieved(self):
