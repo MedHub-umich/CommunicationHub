@@ -39,6 +39,8 @@ class Contextualizer:
             Contextualizer.handle_temperature(unpacker)
         elif (typeNum == PacketTypes.BLOOD_PRESSURE):
             Contextualizer.handle_blood_pressure(unpacker)
+        else:
+            print("Unsupported packet")
 
 
     @staticmethod
