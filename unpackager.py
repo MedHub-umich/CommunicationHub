@@ -77,7 +77,7 @@ class Unpackager:
             elif (self.state == States.WAITING_FOR_CHECKSUMBYTE2):
                 self.checksum += ord(byte) << 8
                 self.buffer.append(byteHex)
-                self.handleFullPacket()
+                self.handleFullPacket(message)
             else:
                 print ("improper or unhandled state of: ", self.state)
             
@@ -88,7 +88,7 @@ class Unpackager:
     def allDataRecieved(self):
         return self.packetsIngested == self.size and self.state == States.WAITING_FOR_END
 
-    def handleFullPacket(self):
+    def handleFullPacket(self, message):
         #TODO: Call actual typing and handling here
         # print(self.crcfunc(self.data.bytes))
         if(self.calculateCRC() and self.size != 0):
@@ -96,7 +96,9 @@ class Unpackager:
             Contextualizer.contextualize(self)
         else:
             print("failed")
+            print(self.message)
             print(self.buffer)
+            
         
         self.resetPackager()
 
