@@ -21,13 +21,16 @@ class Contextualizer:
 
     @staticmethod
     def contextualize(unpacker):
+        print("Here with type: "),
+        print(unpacker.buffer.)
         packBytes = unpacker.buffer.bytes
         if unpacker.size < Contextualizer.MIN_PACKET_SIZE:
             # invalid packet size, return
             return
 
         typeNum = ord(packBytes[Contextualizer.TYPE_INDEX])
-
+        print("Here with type: "),
+        print(typeNum)
         #router
         if (typeNum == PacketTypes.HEART_RATE):
             Contextualizer.handle_heart_rate(unpacker)
