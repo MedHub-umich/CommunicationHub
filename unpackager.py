@@ -20,13 +20,13 @@ class Unpackager:
         self.MAC_ADDRESS = MAC_ADDRESS
         BitArray.bytealigned = True
         self.crcfunc = crcmod.mkCrcFun(0x11021, initCrc=0x1d0f, rev=False, xorOut=0x0000)
-        self.queueDict = dict(
-                PacketTypes.BLOOD_PRESSURE = [],
-                PacketTypes.ECG = [],
-                PacketTypes.BREATHING_RATE = [],
-                PacketTypes.TEMPERATURE = [],
-                PacketTypes.HEART_RATE = []
-            )
+        self.queueDict = {}
+        self.queueDict[PacketTypes.BLOOD_PRESSURE] = []
+        self.queueDict[PacketTypes.ECG]= []
+        self.queueDict[PacketTypes.BREATHING_RATE] = []
+        self.queueDict[PacketTypes.TEMPERATURE] = []
+        self.queueDict[PacketTypes.HEART_RATE] = []
+            
     
     def unpackage(self, message):
         # Ingest with context
