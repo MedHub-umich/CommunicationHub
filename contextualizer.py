@@ -1,6 +1,7 @@
 from datetime import datetime
 from config import *
 import requests
+import worker
 
 class Contextualizer:
     MIN_PACKET_SIZE = 4
@@ -49,7 +50,8 @@ class Contextualizer:
                 "packets": unpacker.queueDict[packetType]
             }
             print("About to send the following type of data", packetType)
-            requests.post(add_data_url, json=finalData)
+            # requests.post(add_data_url, json=finalData)
+            worker.worker(add_data_url, finalData)
             unpacker.queueDict[packetType] = []
 
             
