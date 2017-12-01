@@ -22,7 +22,7 @@ class Contextualizer:
             return
 
         typeNum = ord(packBytes[Contextualizer.TYPE_INDEX])
-        handlePacket(unpacker, typeNum)
+        Contextualizer.handlePacket(unpacker, typeNum)
 
 
     @staticmethod
