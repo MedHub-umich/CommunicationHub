@@ -33,7 +33,7 @@ class Contextualizer:
             "user": MACtranslation[unpacker.MAC_ADDRESS],
             "type": packetType,
             "time": Contextualizer.getTime(),
-            "data": dataPackets,
+            "data": dataPackets.hex,
         }
         Contextualizer.addToQueue(unpacker, packetType, json)
         printInfo(unpacker)
