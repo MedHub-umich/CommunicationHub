@@ -33,7 +33,7 @@ class Contextualizer:
             "user": MACtranslation[unpacker.MAC_ADDRESS],
             "type": packetType,
             "time": Contextualizer.getTime(),
-            "data": dataPackets,
+            "data": dataPackets.bytes,
         }
         Contextualizer.addToQueue(unpacker, packetType, json)
         printInfo(unpacker)
@@ -47,7 +47,7 @@ class Contextualizer:
         unpacker.queueDict[packetType].append(jsonData)
         if (len(unpacker.queueDict[packetType]) > QueueLimits[packetType]):
             finalData = {
-                "packets": unpacker.queueDict[packetType].bytes
+                "packets": unpacker.queueDict[packetType]
             }
             print("About to send the following type of data", packetType)
             requests.post(add_data_url, json=finalData)
