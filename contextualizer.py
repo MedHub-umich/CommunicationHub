@@ -1,12 +1,6 @@
 from datetime import datetime
-
-class PacketTypes:
-    HEART_RATE = 3
-    ECG = 2
-    BREATHING_RATE = 4
-    TEMPERATURE = 5
-    BLOOD_PRESSURE = 1
-
+from config import *
+import requests
 
 class Contextualizer:
     MIN_PACKET_SIZE = 4
@@ -28,49 +22,39 @@ class Contextualizer:
             return
 
         typeNum = ord(packBytes[Contextualizer.TYPE_INDEX])
-        #router
-        if (typeNum == PacketTypes.HEART_RATE):
-            Contextualizer.handle_heart_rate(unpacker)
-        elif (typeNum == PacketTypes.ECG):
-            Contextualizer.handle_ecg(unpacker)
-        elif (typeNum == PacketTypes.BREATHING_RATE):
-            Contextualizer.handle_breathing_rate(unpacker)
-        elif (typeNum == PacketTypes.TEMPERATURE):
-            Contextualizer.handle_temperature(unpacker)
-        elif (typeNum == PacketTypes.BLOOD_PRESSURE):
-            Contextualizer.handle_blood_pressure(unpacker)
-        else:
-            print("Unsupported packet")
+        handlePacket(unpacker, typeNum)
 
 
     @staticmethod
-    def handle_heart_rate(unpacker):
-        print("In heart rate!")
-        printInfo(unpacker)
-    
-    @staticmethod
-    def handle_ecg(unpacker):
-        print("In ecg!")
-        printInfo(unpacker)
-    
-    @staticmethod
-    def handle_breathing_rate(unpacker):
-        print("In breathing rate!")
-        printInfo(unpacker)
-    
-    @staticmethod
-    def handle_temperature(unpacker):
-        print("In temperature!")
-        printInfo(unpacker)
-
-    @staticmethod
-    def handle_blood_pressure(unpacker):
-        print("In blood pressure!")
+    def handlePacket(unpacker, packetType):
+        print("In", packetType)
+        dataPackets = unpacker.data[4:]
+        json = {
+            "user": MacTranslation[unpacker.MAC_ADDRESS],
+            "type": packetType,
+            "time": Contextualizer.getTime(),
+            "data": dataPackets,
+        }
+        addToQueue(unpacker, packetType, json)
         printInfo(unpacker)
 
     @staticmethod
     def getTime():
         return str(datetime.now())
+
+    @staticmethod
+    def addToQueue(unpacker, packetType, jsonData):
+        unpacker.queueDict[packetType].append(jsonData)
+        if (len(unpacker.queueDict[packetType]) > QueueLimits[packetType]):
+            finalData = {
+                "packets": unpacker.queueDict[packetType]
+            }
+            print("About to send the following type of data", packetType)
+            #requests.post(add_data_url, json=finalData)
+            unpacker.queueDict[packetType] = []
+
+            
+
 
 def printInfo(unpacker):
     # print("For device: "),

@@ -1,0 +1,1 @@
+class ECG_SETTINGS
