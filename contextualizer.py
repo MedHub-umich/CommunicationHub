@@ -52,6 +52,7 @@ class Contextualizer:
             print("About to send the following type of data", packetType)
             # requests.post(add_data_url, json=finalData)
             worker.worker(add_data_url, finalData)
+            print("unblocked")
             unpacker.queueDict[packetType] = []
 
             
