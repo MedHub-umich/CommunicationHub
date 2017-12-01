@@ -3,12 +3,6 @@ from contextualizer import Contextualizer
 import crcmod
 from config import PacketTypes
 
-  HEART_RATE = 3
-    ECG = 2
-    BREATHING_RATE = 4
-    TEMPERATURE = 5
-    BLOOD_PRESSURE = 1
-
 # Basically enum for stats
 class States:
     WAITING_FOR_START = 0
