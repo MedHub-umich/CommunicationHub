@@ -30,7 +30,7 @@ class Contextualizer:
         print("In", packetType)
         dataPackets = unpacker.data[4:]
         json = {
-            "user": MacTranslation[unpacker.MAC_ADDRESS],
+            "user": MACTranslation[unpacker.MAC_ADDRESS],
             "type": packetType,
             "time": Contextualizer.getTime(),
             "data": dataPackets,
