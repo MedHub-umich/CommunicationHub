@@ -35,7 +35,7 @@ class Contextualizer:
             "time": Contextualizer.getTime(),
             "data": dataPackets,
         }
-        addToQueue(unpacker, packetType, json)
+        Contextualizer.addToQueue(unpacker, packetType, json)
         printInfo(unpacker)
 
     @staticmethod
