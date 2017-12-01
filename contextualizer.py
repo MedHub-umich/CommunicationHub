@@ -47,7 +47,7 @@ class Contextualizer:
         unpacker.queueDict[packetType].append(jsonData)
         if (len(unpacker.queueDict[packetType]) > QueueLimits[packetType]):
             finalData = {
-                "packets": unpacker.queueDict[packetType]
+                "packets": unpacker.queueDict[packetType].bytes
             }
             print("About to send the following type of data", packetType)
             requests.post(add_data_url, json=finalData)
