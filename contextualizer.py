@@ -40,7 +40,7 @@ class Contextualizer:
 
     @staticmethod
     def getTime():
-        return str(datetime.now())
+        return datetime.now()
 
     @staticmethod
     def addToQueue(unpacker, packetType, jsonData):
