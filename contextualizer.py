@@ -22,12 +22,13 @@ class Contextualizer:
             return
 
         typeNum = ord(packBytes[Contextualizer.TYPE_INDEX])
-        Contextualizer.handlePacket(unpacker, typeNum)
+        print ("Got: "),
+        print (typeNum)
+        # Contextualizer.handlePacket(unpacker, typeNum)
 
 
     @staticmethod
     def handlePacket(unpacker, packetType):
-        print("In", packetType)
         dataPackets = unpacker.data[4:]
         json = {
             "user": MACtranslation[unpacker.MAC_ADDRESS],
