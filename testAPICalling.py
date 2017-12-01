@@ -1,6 +1,6 @@
 import requests
 url='http://medhub-server.herokuapp.com/api/v1.0/add_data'
-data = '''{
+data = {
 	"packets": [
 		{
 			"user": 2,
@@ -21,7 +21,7 @@ data = '''{
 			"data": [1, 30, 6, 8]
 		}
 	]
-}'''
+}
 
-response = requests.post(url, data=data)
+response = requests.post(url, json=data)
 print(response)
