@@ -2,3 +2,4 @@
 *.pyc
 unpackager.pyc
 crcmod-1.7/
+.vscode/tags
