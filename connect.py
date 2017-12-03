@@ -57,7 +57,7 @@ class DeviceContainer:
     print("seze: "),
     print(len(self.connectedDevs))   
 
-    self.connectedDevs[index].devHandle.sendline("connect")
+    self.connectedDevs[-1].devHandle.sendline("connect")
     
     try:
         self.connectedDevs[index].devHandle.expect("Connection successful", timeout=2)
