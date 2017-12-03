@@ -16,7 +16,7 @@ class PacketTypes:
 
 QueueLimits = {
 	PacketTypes.HEART_RATE : 1,
-	PacketTypes.ECG : 100,
+	PacketTypes.ECG : 1,
 	PacketTypes.BREATHING_RATE : 1,
 	PacketTypes.TEMPERATURE : 1,
 	PacketTypes.BLOOD_PRESSURE : 1,
