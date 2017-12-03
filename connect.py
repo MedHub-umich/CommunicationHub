@@ -55,7 +55,7 @@ class DeviceContainer:
     print("index: "),
     print(index) 
     print("seze: "),
-    print(len(connectedDevs))   
+    print(len(self.connectedDevs))   
 
     self.connectedDevs[index].devHandle.sendline("connect")
     
