@@ -4,13 +4,12 @@ from connect import DeviceContainer, readFrom, writeTo
 
 def readFromThread(devHandle):
 	readFrom(devHandle)
-	print('testing test')
 
 def writeToThread(devHandle, value):
 	time.sleep(2)
 	writeTo(devHandle, value)
 
-threads = []
+threads = []   #TODO: currently not deleting threads after they have completed
 numThreads = 0 
 
 def connect():
@@ -28,22 +27,23 @@ def BLEread(device):
 	global numThreads
 	threads.append(threading.Thread(target=readFromThread, args=(device,)))
 	threads[numThreads].setDaemon(True)
+	# pull this out so it gets initialized then start read is where it will start working???s	
 	threads[numThreads].start()
 	numThreads = numThreads + 1 
 
 def BLEwrite(device, value):
 	global threads
 	global numThreads
-	threads.append(threading.Thread(target=writeToThread, args=(device.devHandle, "00020101")))
+	threads.append(threading.Thread(target=writeToThread, args=(device.devHandle, value)))
 	threads[numThreads].setDaemon(True)
 	threads[numThreads].start()
 	numThreads = numThreads + 1
 
+def reconnect(device):
+	global threads
+	global numThreads
+
+#.cancel() to stop a thread 
+#.terminate() to close spawn
 
 
-# threads.append(threading.Thread(target=writeToThread, args=(connectedDevs[0].devHandle, "00020101")))
-# threads[2].setDaemon(True)
-# threads[2].start()
-
-
-time.sleep(2)

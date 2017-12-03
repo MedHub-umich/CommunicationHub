@@ -9,6 +9,9 @@ class Device:
         self.MACaddress = MACaddress
         self.devHandle = devHandle
         self.parser = Unpackager(MACaddress)
+        self.isConnected = True
+        self.readThread
+        self.writeThread
 
 class DeviceContainer:
   def __init__(self):
@@ -59,9 +62,11 @@ def readFrom(device):
             quit()
         i = device.devHandle.expect([pexpect.TIMEOUT, pexpect.EOF, "Notification handle = 0x0010 value: "], timeout=10)
         if i == 0:
-            pass
+            # pass
+            print('Failed to read from device')
         elif i == 1:
-            pass
+            # pass
+            print('Still trying to figure out what this does')
         else:
             device.devHandle.expect("\r\n")
             # print("Processing:"),
