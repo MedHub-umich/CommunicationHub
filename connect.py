@@ -48,6 +48,7 @@ class DeviceContainer:
     command = "sudo gatttool -i hci0 -t random  -b " + MACaddress + " -I"
     if index >= numDevices:
         self.connectedDevs.append(Device(MACaddress, pexpect.spawn(command)))
+        print("in the correct place")
     else:
         self.connectedDevs[index].devHandle = pexpect.spawn(command)
 
