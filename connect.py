@@ -53,7 +53,9 @@ class DeviceContainer:
         self.connectedDevs[index].devHandle = pexpect.spawn(command)
 
     print("index: "),
-    print(index)    
+    print(index) 
+    print("seze: "),
+    print(len(connectedDevs))   
 
     self.connectedDevs[index].devHandle.sendline("connect")
     
