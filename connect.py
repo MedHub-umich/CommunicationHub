@@ -42,6 +42,9 @@ class DeviceContainer:
 
   def connectSingle(self, MACaddress, index):
     global numDevices
+    print(numDevices),
+    print(", index: "),
+    print(index)
     command = "sudo gatttool -i hci0 -t random  -b " + MACaddress + " -I"
     if index >= numDevices:
         self.connectedDevs.append(Device(MACaddress, pexpect.spawn(command)))
