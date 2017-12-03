@@ -10,8 +10,8 @@ class Device:
         self.devHandle = devHandle
         self.parser = Unpackager(MACaddress)
         self.isConnected = True
-        self.readThread
-        self.writeThread
+        #self.readThread
+        #self.writeThread
 
 class DeviceContainer:
   def __init__(self):
