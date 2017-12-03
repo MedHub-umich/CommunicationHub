@@ -55,7 +55,7 @@ class Contextualizer:
     @staticmethod
     def addToQueue(unpacker, packetType, jsonData):
         unpacker.queueDict[packetType].append(jsonData)
-        if (len(unpacker.queueDict[packetType]) > QueueLimits[packetType]):
+        if (len(unpacker.queueDict[packetType]) >= QueueLimits[packetType]):
             finalData = {
                 "packets": unpacker.queueDict[packetType]
             }
