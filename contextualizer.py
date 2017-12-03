@@ -37,6 +37,7 @@ class Contextualizer:
         }
         Contextualizer.addToQueue(unpacker, packetType, json)
         printInfo(unpacker)
+        print(dataPackets.hex)
 
     @staticmethod
     def getTime():
