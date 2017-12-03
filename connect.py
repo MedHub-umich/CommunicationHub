@@ -11,7 +11,7 @@ class Device:
         self.devHandle = devHandle
         self.parser = Unpackager(MACaddress)
         self.isConnected = True
-        self.readThread = threading.Thread(target=readFrom, args=(device,)
+        self.readThread = threading.Thread(target=readFrom, args=(devHandle,))
         self.readThread.setDaemon(True)
         #self.writeThread
 
@@ -55,8 +55,8 @@ class DeviceContainer:
     return connected
 
  	    
-def readFrom(device):
-    device.devHandle.sendline("char-write-req 0x0011 0100 -listen")
+def readFrom(devHandle):
+    devHandle.sendline("char-write-req 0x0011 0100 -listen")
     print("Reading...")
     
     while True:
@@ -82,6 +82,7 @@ def writeTo(devHandle, data):
     print("Write Successful")
 
 def startRead(device):
+    #device.readThread.setDaemon(True)
     device.readThread.start()
 
 
