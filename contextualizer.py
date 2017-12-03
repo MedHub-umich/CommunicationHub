@@ -29,6 +29,8 @@ class Contextualizer:
     @staticmethod
     def handlePacket(unpacker, packetType):
         dataPackets = unpacker.data[4:]
+        print(dataPackets)
+        print(unpacker.data)
         json = {
             "user": MACtranslation[unpacker.MAC_ADDRESS],
             "type": packetType,
