@@ -56,7 +56,7 @@ class DeviceContainer:
 
  	    
 def readFrom(device):
-    devHandle.sendline("char-write-req 0x0011 0100 -listen")
+    device.devHandle.sendline("char-write-req 0x0011 0100 -listen")
     print("Reading...")
     
     while True:
