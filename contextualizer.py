@@ -29,6 +29,8 @@ class Contextualizer:
     @staticmethod
     def handlePacket(unpacker, packetType):
         dataPackets = unpacker.data[4 * 8:]
+        print("Full buffer"),
+        print(unpacker.buffer)
         print("Full data "),
         print(unpacker.data)
 
