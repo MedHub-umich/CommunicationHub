@@ -29,13 +29,13 @@ class Contextualizer:
     @staticmethod
     def handlePacket(unpacker, packetType):
         dataPackets = unpacker.data[4 * 8:]
-        print("Full buffer"),
-        print(unpacker.buffer)
-        print("Full data "),
-        print(unpacker.data)
+        # print("Full buffer"),
+        # print(unpacker.buffer)
+        # print("Full data "),
+        # print(unpacker.data)
 
-        print("Portioned out data"),
-        print(dataPackets)
+        # print("Portioned out data"),
+        # print(dataPackets)
         
         json = {
             "user": MACtranslation[unpacker.MAC_ADDRESS],
@@ -45,8 +45,8 @@ class Contextualizer:
         }
         Contextualizer.addToQueue(unpacker, packetType, json)
         printInfo(unpacker)
-        print("data being sent"),
-        print(dataPackets.hex)
+        # print("data being sent"),
+        # print(dataPackets.hex)
 
     @staticmethod
     def getTime():
