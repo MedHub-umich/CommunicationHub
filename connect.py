@@ -1,5 +1,6 @@
 import pexpect
 import time
+import threading
 from unpackager import Unpackager
 
 DEVICES = ["EC:B1:FE:A2:84:01", "D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51", "FA:9A:A3:54:EE:DA"]
@@ -10,7 +11,8 @@ class Device:
         self.devHandle = devHandle
         self.parser = Unpackager(MACaddress)
         self.isConnected = True
-        #self.readThread
+        self.readThread = threading.Thread(target=readFrom, args=(device,)
+        self.readThread.setDaemon(True)
         #self.writeThread
 
 class DeviceContainer:
@@ -62,11 +64,9 @@ def readFrom(device):
             quit()
         i = device.devHandle.expect([pexpect.TIMEOUT, pexpect.EOF, "Notification handle = 0x0010 value: "], timeout=10)
         if i == 0:
-            # pass
-            print('Failed to read from device')
+            print('Device disconnected')
         elif i == 1:
-            # pass
-            print('Still trying to figure out what this does')
+            pass
         else:
             device.devHandle.expect("\r\n")
             # print("Processing:"),
@@ -80,6 +80,9 @@ def writeTo(devHandle, data):
     command = "char-write-req 0x0019 " + data
     devHandle.sendline(command)
     print("Write Successful")
+
+def startRead(device):
+    device.readThread.start()
 
 
 

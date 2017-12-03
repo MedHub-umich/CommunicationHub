@@ -2,7 +2,7 @@ from threads import *
 import time
 
 connectedDevs = connect()
-BLEread(connectedDevs[0])
+startRead(connectedDevs[0])
 
 time.sleep(2)
 
