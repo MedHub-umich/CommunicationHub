@@ -23,6 +23,7 @@ class DeviceContainer:
     return
 
   def connectDevices(self):  
+    i = 0
     for i in range(len(DEVICES)):
         connected = self.connectSingle(DEVICES[i], i)
 
