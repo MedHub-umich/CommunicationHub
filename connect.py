@@ -42,7 +42,7 @@ class DeviceContainer:
   def connectDevices(self):  
     i = 0
     for i in range(len(DEVICES)):
-        temp = Device(DEVICES[i], numDevices)
+        temp = Device(DEVICES[i], self.numDevices)
 
     	if temp.isConnected:
             self.numDevices += 1
