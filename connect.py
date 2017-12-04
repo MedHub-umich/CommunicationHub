@@ -27,8 +27,8 @@ class DeviceContainer:
     for i in range(len(DEVICES)):
         connected = self.connectSingle(DEVICES[i], i)
 
-    	if connected:
-          numDevices += 1
+    	# if connected:
+        # numDevices += 1
 
     if (numDevices == 0):
         print("No Devices Found")
@@ -42,6 +42,7 @@ class DeviceContainer:
 
   def connectSingle(self, MACaddress, index):
     global numDevices
+    print("numDevices: "),
     print(numDevices),
     print(", index: "),
     print(index)
@@ -51,6 +52,7 @@ class DeviceContainer:
         print("in the correct place")
     else:
         self.connectedDevs[index].devHandle = pexpect.spawn(command)
+        print("should not be here")
 
     print("index: "),
     print(index) 
@@ -62,6 +64,7 @@ class DeviceContainer:
     try:
         self.connectedDevs[index].devHandle.expect("Connection successful", timeout=2)
         connected = True
+        numDevices += 1
    
     except:
         print("Could not find "),
