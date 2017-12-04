@@ -25,8 +25,8 @@ class DeviceContainer:
     for i in range(len(DEVICES)):
         connected = self.connectSingle(DEVICES[i], i, self.numDevices)
 
-    	# if connected:
-        # numDevices += 1
+    	if connected:
+            numDevices += 1
 
     if (numDevices == 0):
         print("No Devices Found")
@@ -38,13 +38,13 @@ class DeviceContainer:
 
     return self.connectedDevs
 
-  def connectSingle(self, MACaddress, index, numDevices):
+  def connectSingle(self, MACaddress, index):
     print("numDevices: "),
-    print(numDevices),
+    print(self.numDevices),
     print(", index: "),
     print(index)
     command = "sudo gatttool -i hci0 -t random  -b " + MACaddress + " -I"
-    if index >= numDevices:
+    if index >= self.numDevices:
         self.connectedDevs.append(Device(MACaddress, pexpect.spawn(command)))
         print("in the correct place")
     else:
@@ -61,7 +61,7 @@ class DeviceContainer:
     try:
         self.connectedDevs[index].devHandle.expect("Connection successful", timeout=2)
         connected = True
-        numDevices += 1
+        # numDevices += 1
    
     except:
         print("Could not find "),
