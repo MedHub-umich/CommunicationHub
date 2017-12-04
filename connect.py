@@ -15,7 +15,7 @@ class Device:
         self.readThread.setDaemon(True)
         self.index = index
 
-    def connect():
+    def connect(self):
         command = "sudo gatttool -i hci0 -t random  -b " + self.MACaddress + " -I"
         devHandle = pexpect.spawn(command)
         devHandle.sendline("connect")
@@ -87,7 +87,7 @@ class DeviceContainer:
         print(self.connectedDevs[index].readThread.isAlive())
         self.connectDevs[index].devHandle = self.connectedDevs[index].connect()
  	    
-  def readFrom(index):
+  def readFrom(self, index):
     connectedDevs[index].devHandle.sendline("char-write-req 0x0011 0100 -listen")
     print("Reading...")
     
