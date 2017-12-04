@@ -23,17 +23,17 @@ class DeviceContainer:
   def connectDevices(self):  
     i = 0
     for i in range(len(DEVICES)):
-        connected = self.connectSingle(DEVICES[i], i, self.numDevices)
+        connected = self.connectSingle(DEVICES[i], self.numDevices)
 
     	if connected:
-            numDevices += 1
+            self.numDevices += 1
 
-    if (numDevices == 0):
+    if (self.numDevices == 0):
         print("No Devices Found")
 
     else:
         print("Connect to "),
-        print(numDevices),
+        print(self.numDevices),
         print(" device(s)")
 
     return self.connectedDevs
