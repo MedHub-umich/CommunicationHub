@@ -15,12 +15,6 @@ class Device:
         self.readThread.setDaemon(True)
         self.index = index
 
-    def reconnect(self):
-    # delete old readFrom thread and pexpect spawn
-        self.devHandle.terminate()
-        print(self.readThread.isAlive())
-        self.connectSingle(self.MACaddress, self.index)
-
 class DeviceContainer:
   def __init__(self):
     self.connectedDevs = []
@@ -76,6 +70,13 @@ class DeviceContainer:
         self.connectedDevs = self.connectedDevs[:-1]  # pop
         connected = False
     return connected
+
+  def reconnect(self, index):
+    # delete old readFrom thread and pexpect spawn
+        self.connectedDevs[index].devHandle.terminate()
+        self.connectedDevs[index].readThread.cancel()
+        print(self.connectedDevs[index].readThread.isAlive())
+        self.connectSingle(self.connectedDevs[index].MACaddress, index)
  	    
 def readFrom(device):
     device.devHandle.sendline("char-write-req 0x0011 0100 -listen")
@@ -88,7 +89,7 @@ def readFrom(device):
         if i == 0:
             print('Device disconnected')
             device.connected = False
-            device.reconnect()
+            device.reconnect(device.index)
         elif i == 1:
             pass
         else:
