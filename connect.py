@@ -5,8 +5,6 @@ from unpackager import Unpackager
 
 DEVICES = ["EC:B1:FE:A2:84:01", "D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51", "FA:9A:A3:54:EE:DA"]
 
-numDevices = 0
-
 class Device:
     def __init__(self, MACaddress, devHandle):
         self.MACaddress = MACaddress
@@ -19,13 +17,13 @@ class Device:
 class DeviceContainer:
   def __init__(self):
     self.connectedDevs = []
-    global numDevices
+    self.numDevices = 0
     return
 
   def connectDevices(self):  
     i = 0
     for i in range(len(DEVICES)):
-        connected = self.connectSingle(DEVICES[i], i)
+        connected = self.connectSingle(DEVICES[i], i, self.numDevices)
 
     	# if connected:
         # numDevices += 1
@@ -40,8 +38,7 @@ class DeviceContainer:
 
     return self.connectedDevs
 
-  def connectSingle(self, MACaddress, index):
-    global numDevices
+  def connectSingle(self, MACaddress, index, numDevices):
     print("numDevices: "),
     print(numDevices),
     print(", index: "),
