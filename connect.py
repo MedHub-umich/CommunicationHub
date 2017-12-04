@@ -6,13 +6,20 @@ from unpackager import Unpackager
 DEVICES = ["EC:B1:FE:A2:84:01", "D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51", "FA:9A:A3:54:EE:DA"]
 
 class Device:
-    def __init__(self, MACaddress, devHandle):
+    def __init__(self, MACaddress, devHandle, index):
         self.MACaddress = MACaddress
         self.devHandle = devHandle
         self.parser = Unpackager(MACaddress)
         self.isConnected = True
         self.readThread = threading.Thread(target=readFrom, args=(self,))
         self.readThread.setDaemon(True)
+        self.index = index
+
+    def reconnect():
+    # delete old readFrom thread and pexpect spawn
+    self.devHandle.terminate()
+    self.readThread.close()
+    self.connectSingle(self.MACaddress, self.index)
 
 class DeviceContainer:
   def __init__(self):
@@ -45,7 +52,7 @@ class DeviceContainer:
     print(index)
     command = "sudo gatttool -i hci0 -t random  -b " + MACaddress + " -I"
     if index >= self.numDevices:
-        self.connectedDevs.append(Device(MACaddress, pexpect.spawn(command)))
+        self.connectedDevs.append(Device(MACaddress, pexpect.spawn(command), index))
         print("in the correct place")
     else:
         self.connectedDevs[index].devHandle = pexpect.spawn(command)
@@ -69,13 +76,6 @@ class DeviceContainer:
         self.connectedDevs = self.connectedDevs[:-1]  # pop
         connected = False
     return connected
-
-  def reconnect():
-    # delete old readFrom thread and pexpect spawn
-    self.devHandle.terminate()
-    self.readThread.close()
-    self.connectSingle()
-
  	    
 def readFrom(device):
     device.devHandle.sendline("char-write-req 0x0011 0100 -listen")
