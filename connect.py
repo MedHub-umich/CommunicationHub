@@ -6,14 +6,32 @@ from unpackager import Unpackager
 DEVICES = ["EC:B1:FE:A2:84:01", "D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51", "FA:9A:A3:54:EE:DA"]
 
 class Device:
-    def __init__(self, MACaddress, devHandle, index):
+    def __init__(self, MACaddress, index):
         self.MACaddress = MACaddress
-        self.devHandle = devHandle
+        self.devHandle = self.connect()
         self.parser = Unpackager(MACaddress)
-        self.isConnected = True
-        self.readThread = threading.Thread(target=readFrom, args=(self,))
+        self.isConnected = False
+        self.readThread = threading.Thread(target=self.readFrom, args=(self,))
         self.readThread.setDaemon(True)
         self.index = index
+
+    def connect():
+        command = "sudo gatttool -i hci0 -t random  -b " + MACaddress + " -I"
+        devHandle = pexpect.spawn(command)
+        devHandle.sendline("connect")
+    
+        try:
+            devHandle.expect("Connection successful", timeout=2)
+            self.isConnected = True
+            # numDevices += 1
+   
+        except:
+            print("Could not find "),
+            print(MACaddress)
+            self.isConnected = False
+
+        return devHandle
+
 
 class DeviceContainer:
   def __init__(self):
@@ -24,10 +42,11 @@ class DeviceContainer:
   def connectDevices(self):  
     i = 0
     for i in range(len(DEVICES)):
-        connected = self.connectSingle(DEVICES[i], self.numDevices)
+        temp = Device(MACaddress, numDevices)
 
-    	if connected:
+    	if temp.isConnected:
             self.numDevices += 1
+            self.connectedDevs.append(temp)
 
     if (self.numDevices == 0):
         print("No Devices Found")
@@ -39,55 +58,55 @@ class DeviceContainer:
 
     return self.connectedDevs
 
-  def connectSingle(self, MACaddress, index):
-    command = "sudo gatttool -i hci0 -t random  -b " + MACaddress + " -I"
-    if index >= self.numDevices:
-        self.connectedDevs.append(Device(MACaddress, pexpect.spawn(command), index))
+ #  def connectSingle(self, MACaddress, index):
+ #    command = "sudo gatttool -i hci0 -t random  -b " + MACaddress + " -I"
+ #    if index >= self.numDevices:
+ #        self.connectedDevs.append(Device(MACaddress, pexpect.spawn(command), index))
 
-    else:
-        self.connectedDevs[index].devHandle = pexpect.spawn(command)
+ #    else:
+ #        self.connectedDevs[index].devHandle = pexpect.spawn(command)
 
-    self.connectedDevs[index].devHandle.sendline("connect")
+ #    self.connectedDevs[index].devHandle.sendline("connect")
     
-    try:
-        self.connectedDevs[index].devHandle.expect("Connection successful", timeout=2)
-        connected = True
-        # numDevices += 1
+ #    try:
+ #        self.connectedDevs[index].devHandle.expect("Connection successful", timeout=2)
+ #        connected = True
+ #        # numDevices += 1
    
-    except:
-        print("Could not find "),
-	print(MACaddress)
-        self.connectedDevs = self.connectedDevs[:-1]  # pop
-        connected = False
-    return connected
+ #    except:
+ #        print("Could not find "),
+	# print(MACaddress)
+ #        self.connectedDevs = self.connectedDevs[:-1]  # pop
+ #        connected = False
+ #    return connected
 
   def reconnect(self, index):
     # delete old readFrom thread and pexpect spawn
         self.connectedDevs[index].devHandle.terminate()
         self.connectedDevs[index].readThread.cancel()
         print(self.connectedDevs[index].readThread.isAlive())
-        self.connectSingle(self.connectedDevs[index].MACaddress, index)
+        self.connectDevs[index].devHandle = self.connectedDevs[index].connect()
  	    
-def readFrom(device):
-    device.devHandle.sendline("char-write-req 0x0011 0100 -listen")
+  def readFrom(index):
+    connectedDevs[index].devHandle.sendline("char-write-req 0x0011 0100 -listen")
     print("Reading...")
     
     while True:
-        if device.parser.handle == False:
+        if connectedDevs[index].parser.handle == False:
             quit()
-        i = device.devHandle.expect([pexpect.TIMEOUT, pexpect.EOF, "Notification handle = 0x0010 value: "], timeout=3)
+        i = connectedDevs[index].devHandle.expect([pexpect.TIMEOUT, pexpect.EOF, "Notification handle = 0x0010 value: "], timeout=3)
         if i == 0:
             print('Device disconnected')
-            device.connected = False
-            self.reconnect(device.index)
+            device.isConnected = False
+            reconnect(index)
         elif i == 1:
             pass
         else:
-            device.devHandle.expect("\r\n")
+            connectedDevs[index].devHandle.expect("\r\n")
             # print("Processing:"),
             # print(device.devHandle.before),
             # print("\n")
-            device.parser.unpackage(device.devHandle.before)
+            connectedDevs[index].parser.unpackage(device.devHandle.before)
 
 
 
