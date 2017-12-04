@@ -16,7 +16,7 @@ class Device:
         self.index = index
 
     def connect():
-        command = "sudo gatttool -i hci0 -t random  -b " + MACaddress + " -I"
+        command = "sudo gatttool -i hci0 -t random  -b " + self.MACaddress + " -I"
         devHandle = pexpect.spawn(command)
         devHandle.sendline("connect")
     
@@ -42,7 +42,7 @@ class DeviceContainer:
   def connectDevices(self):  
     i = 0
     for i in range(len(DEVICES)):
-        temp = Device(MACaddress, numDevices)
+        temp = Device(DEVICES[i], numDevices)
 
     	if temp.isConnected:
             self.numDevices += 1
