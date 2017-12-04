@@ -40,22 +40,12 @@ class DeviceContainer:
     return self.connectedDevs
 
   def connectSingle(self, MACaddress, index):
-    print("numDevices: "),
-    print(self.numDevices),
-    print(", index: "),
-    print(index)
     command = "sudo gatttool -i hci0 -t random  -b " + MACaddress + " -I"
     if index >= self.numDevices:
         self.connectedDevs.append(Device(MACaddress, pexpect.spawn(command), index))
-        print("in the correct place")
+
     else:
         self.connectedDevs[index].devHandle = pexpect.spawn(command)
-        print("should not be here")
-
-    print("index: "),
-    print(index) 
-    print("size: "),
-    print(len(self.connectedDevs))   
 
     self.connectedDevs[index].devHandle.sendline("connect")
     
@@ -89,7 +79,7 @@ def readFrom(device):
         if i == 0:
             print('Device disconnected')
             device.connected = False
-            device.reconnect(device.index)
+            reconnect(device.index)
         elif i == 1:
             pass
         else:
