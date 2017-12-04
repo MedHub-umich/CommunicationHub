@@ -27,7 +27,7 @@ class Device:
    
         except:
             print("Could not find "),
-            print(MACaddress)
+            print(self.MACaddress)
             self.isConnected = False
 
         return devHandle
