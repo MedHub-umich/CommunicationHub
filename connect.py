@@ -75,11 +75,11 @@ def readFrom(device):
     while True:
         if device.parser.handle == False:
             quit()
-        i = device.devHandle.expect([pexpect.TIMEOUT, pexpect.EOF, "Notification handle = 0x0010 value: "], timeout=10)
+        i = device.devHandle.expect([pexpect.TIMEOUT, pexpect.EOF, "Notification handle = 0x0010 value: "], timeout=3)
         if i == 0:
             print('Device disconnected')
             device.connected = False
-            reconnect(device.index)
+            self.reconnect(device.index)
         elif i == 1:
             pass
         else:
