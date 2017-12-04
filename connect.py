@@ -15,11 +15,11 @@ class Device:
         self.readThread.setDaemon(True)
         self.index = index
 
-    def reconnect():
+    def reconnect(self):
     # delete old readFrom thread and pexpect spawn
-    self.devHandle.terminate()
-    self.readThread.close()
-    self.connectSingle(self.MACaddress, self.index)
+        self.devHandle.terminate()
+        print(self.readThread.isAlive())
+        self.connectSingle(self.MACaddress, self.index)
 
 class DeviceContainer:
   def __init__(self):
