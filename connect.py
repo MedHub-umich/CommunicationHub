@@ -52,6 +52,7 @@ class DeviceContainer:
             self.connectedDevs.append(temp)
             self.readThreads.append(threading.Thread(target=readFrom, args=(self, temp.index)))
             self.readThreads[temp.index].setDaemon(True)
+            self.readThreads[temp.index].start()
 
     if (self.numDevices == 0):
         print("No Devices Found")
@@ -85,8 +86,8 @@ class DeviceContainer:
  #        connected = False
  #    return connected
 
-  def startRead(self, index):
-    connectedDevs.readThreads[index].start()
+  # def startRead(self, index):
+  #   connectedDevs.readThreads[index].start()
 
   def reconnect(self, index):
     # delete old readFrom thread and pexpect spawn
