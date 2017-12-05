@@ -3,7 +3,7 @@ from threads import *
 import time
 
 connectedDevs = connect()
-connectedDevs.startRead(0)
+# connectedDevs.startRead(0)
 
 time.sleep(2)
 
