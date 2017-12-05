@@ -3,8 +3,8 @@ import time
 import threading
 from unpackager import Unpackager
 
-# DEVICES = ["EC:B1:FE:A2:84:01", "D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51", "FA:9A:A3:54:EE:DA"]
-DEVICES = ["EF:DD:9C:D6:FB:6B"]
+DEVICES = ["EC:B1:FE:A2:84:01", "D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51", "FA:9A:A3:54:EE:DA"]
+# DEVICES = ["EF:DD:9C:D6:FB:6B"]
 class Device:
     def __init__(self, MACaddress, index):
         self.MACaddress = MACaddress
