@@ -91,11 +91,16 @@ class DeviceContainer:
   def reconnect(self, index):
     # delete old readFrom thread and pexpect spawn
         self.connectedDevs[index].devHandle.terminate()
-        # self.connectedDevs[index].readThread.cancel()
+        self.readThreads[index].cancel()
         print(self.readThreads[index].isAlive())
         self.connectedDevs[index].connect()
         print("connected? "),
         print(self.connectedDevs[index].isConnected)
+
+        # add new read thread
+        self.readThreads.[index] = threading.Thread(target=readFromThread, args=(self, temp.index))
+        self.readThreads[temp.index].setDaemon(True)
+        self.readThreads[temp.index].start()
  	    
   def readFrom(self, index):
         self.connectedDevs[index].devHandle.sendline("char-write-req 0x0011 0100 -listen")
