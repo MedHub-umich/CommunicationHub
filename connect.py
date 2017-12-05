@@ -98,9 +98,9 @@ class DeviceContainer:
         print(self.connectedDevs[index].isConnected)
 
         # add new read thread
-        self.readThreads.[index] = threading.Thread(target=readFromThread, args=(self, temp.index))
-        self.readThreads[temp.index].setDaemon(True)
-        self.readThreads[temp.index].start()
+        self.readThreads[index] = threading.Thread(target=readFromThread, args=(self, temp.index))
+        self.readThreads[index].setDaemon(True)
+        self.readThreads[index].start()
  	    
   def readFrom(self, index):
         self.connectedDevs[index].devHandle.sendline("char-write-req 0x0011 0100 -listen")
