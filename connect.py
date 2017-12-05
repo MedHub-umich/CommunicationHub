@@ -93,7 +93,7 @@ class DeviceContainer:
         self.connectedDevs[index].devHandle.terminate()
         # self.connectedDevs[index].readThread.cancel()
         print(self.readThreads[index].isAlive())
-        self.connectDevs[index].connect()
+        self.connectedDevs[index].connect()
         print("connected? "),
         print(self.connectedDevs[index].isConnected)
  	    
@@ -122,6 +122,7 @@ def readFromThread(connectedDevs, index):
 
 def writeTo(devHandle, data):
     command = "char-write-req 0x0019 " + data
+    # Add check if the device is connected, if not store alert?
     devHandle.sendline(command)
     print("Write Successful")
 
