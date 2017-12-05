@@ -111,7 +111,7 @@ class DeviceContainer:
                 pass
             else:
                 self.connectedDevs[index].devHandle.expect("\r\n")
-                self.connectedDevs[index].parser.unpackage(connectedDevs[index].devHandle.before)
+                self.connectedDevs[index].parser.unpackage(self.connectedDevs[index].devHandle.before)
 
 def readFromThread(connectedDevs, index):
     connectedDevs.readFrom(index)
