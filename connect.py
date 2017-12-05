@@ -88,15 +88,14 @@ class DeviceContainer:
 
   # def startRead(self, index):
   #   connectedDevs.readThreads[index].start()
-
-    def reconnect(self, index):
+  def reconnect(self, index):
     # delete old readFrom thread and pexpect spawn
         self.connectedDevs[index].devHandle.terminate()
         self.connectedDevs[index].readThread.cancel()
         print(self.connectedDevs[index].readThread.isAlive())
         self.connectDevs[index].devHandle = self.connectedDevs[index].connect()
  	    
-    def readFrom(self, index):
+  def readFrom(self, index):
         self.connectedDevs[index].devHandle.sendline("char-write-req 0x0011 0100 -listen")
         print("Reading...")
 
