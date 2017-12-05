@@ -85,6 +85,9 @@ class DeviceContainer:
  #        connected = False
  #    return connected
 
+  def startRead(self, index):
+    connectedDevs.readThreads[index].start()
+
   def reconnect(self, index):
     # delete old readFrom thread and pexpect spawn
         self.connectedDevs[index].devHandle.terminate()
@@ -117,8 +120,7 @@ def writeTo(devHandle, data):
     devHandle.sendline(command)
     print("Write Successful")
 
-def startRead(device):
-    device.readThread.start()
+
 
 
 
