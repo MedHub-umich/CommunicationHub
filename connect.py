@@ -50,7 +50,7 @@ class DeviceContainer:
             print("device registered as connected")
             self.numDevices += 1
             self.connectedDevs.append(temp)
-            self.readThreads.append(threading.Thread(target=readFrom, args=(self,index)))
+            self.readThreads.append(threading.Thread(target=readFrom, args=(self, temp.index)))
             self.readThread[temp.index].setDaemon(True)
 
     if (self.numDevices == 0):
