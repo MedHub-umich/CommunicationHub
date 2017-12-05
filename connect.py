@@ -98,7 +98,7 @@ class DeviceContainer:
         print(self.connectedDevs[index].isConnected)
 
         # add new read thread
-        self.readThreads[index] = threading.Thread(target=readFromThread, args=(self, temp.index))
+        self.readThreads[index] = threading.Thread(target=readFromThread, args=(self, index))
         self.readThreads[index].setDaemon(True)
         self.readThreads[index].start()
  	    
