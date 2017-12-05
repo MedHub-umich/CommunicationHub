@@ -19,8 +19,10 @@ class Device:
         command = "sudo gatttool -i hci0 -t random  -b " + self.MACaddress + " -I"
         devHandle = pexpect.spawn(command)
         devHandle.sendline("connect")
+        print("atleast something is working")
     
         try:
+            print("got connected!")
             devHandle.expect("Connection successful", timeout=2)
             self.isConnected = True
             # numDevices += 1
