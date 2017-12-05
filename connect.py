@@ -8,7 +8,7 @@ DEVICES = ["EC:B1:FE:A2:84:01", "D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9
 class Device:
     def __init__(self, MACaddress, index):
         self.MACaddress = MACaddress
-        self.devHandle = self.connect()
+        # self.devHandle = self.connect()
         self.parser = Unpackager(MACaddress)
         self.isConnected = False
         # self.readThread = threading.Thread(target=readFrom, args=(self,))
@@ -17,11 +17,11 @@ class Device:
 
     def connect(self):
         command = "sudo gatttool -i hci0 -t random  -b " + self.MACaddress + " -I"
-        devHandle = pexpect.spawn(command)
-        devHandle.sendline("connect")
+        self.devHandle = pexpect.spawn(command)
+        self.devHandle.sendline("connect")
     
         try:
-            devHandle.expect("Connection successful", timeout=2)
+            self.devHandle.expect("Connection successful", timeout=2)
             self.isConnected = True
             # numDevices += 1
    
@@ -30,7 +30,7 @@ class Device:
             print(self.MACaddress)
             self.isConnected = False
 
-        return devHandle
+        # return devHandle
 
 
 class DeviceContainer:
@@ -44,6 +44,7 @@ class DeviceContainer:
     i = 0
     for i in range(len(DEVICES)):
         temp = Device(DEVICES[i], self.numDevices)
+        temp.connect()
 
     	if temp.isConnected:
             print("device registered as connected")
