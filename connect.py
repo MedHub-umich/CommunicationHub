@@ -114,7 +114,7 @@ class DeviceContainer:
                 print('Device disconnected')
                 self.connectedDevs[index].isConnected = False
                 self.reconnect(index)
-                return
+                exit(1)
             elif i == 1:
                 pass
             else:
