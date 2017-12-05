@@ -93,7 +93,9 @@ class DeviceContainer:
         self.connectedDevs[index].devHandle.terminate()
         # self.connectedDevs[index].readThread.cancel()
         print(self.readThreads[index].isAlive())
-        self.connectDevs[index].devHandle = self.connectedDevs[index].connect()
+        self.connectDevs[index].connect()
+        print("connected? "),
+        print(self.connectedDevs[index].isConnected)
  	    
   def readFrom(self, index):
         self.connectedDevs[index].devHandle.sendline("char-write-req 0x0011 0100 -listen")
