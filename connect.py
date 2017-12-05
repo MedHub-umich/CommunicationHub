@@ -11,8 +11,8 @@ class Device:
         self.devHandle = self.connect()
         self.parser = Unpackager(MACaddress)
         self.isConnected = False
-        self.readThread = threading.Thread(target=self.readFrom, args=(self,))
-        self.readThread.setDaemon(True)
+        # self.readThread = threading.Thread(target=readFrom, args=(self,))
+        # self.readThread.setDaemon(True)
         self.index = index
 
     def connect(self):
@@ -37,6 +37,7 @@ class DeviceContainer:
   def __init__(self):
     self.connectedDevs = []
     self.numDevices = 0
+    self.readThreads = []
     return
 
   def connectDevices(self):  
@@ -47,6 +48,8 @@ class DeviceContainer:
     	if temp.isConnected:
             self.numDevices += 1
             self.connectedDevs.append(temp)
+            self.readThreads.append(threading.Thread(target=readFrom, args=(self,index)))
+            self.readThread[temp.index].setDaemon(True)
 
     if (self.numDevices == 0):
         print("No Devices Found")
@@ -87,10 +90,10 @@ class DeviceContainer:
         print(self.connectedDevs[index].readThread.isAlive())
         self.connectDevs[index].devHandle = self.connectedDevs[index].connect()
  	    
-  def readFrom(self, index):
+def readFrom(index):
     connectedDevs[index].devHandle.sendline("char-write-req 0x0011 0100 -listen")
     print("Reading...")
-    
+
     while True:
         if connectedDevs[index].parser.handle == False:
             quit()
@@ -103,9 +106,6 @@ class DeviceContainer:
             pass
         else:
             connectedDevs[index].devHandle.expect("\r\n")
-            # print("Processing:"),
-            # print(device.devHandle.before),
-            # print("\n")
             connectedDevs[index].parser.unpackage(device.devHandle.before)
 
 
@@ -116,7 +116,6 @@ def writeTo(devHandle, data):
     print("Write Successful")
 
 def startRead(device):
-    #device.readThread.setDaemon(True)
     device.readThread.start()
 
 
