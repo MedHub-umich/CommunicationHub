@@ -51,7 +51,7 @@ class DeviceContainer:
             self.numDevices += 1
             self.connectedDevs.append(temp)
             self.readThreads.append(threading.Thread(target=readFrom, args=(self, temp.index)))
-            self.readThread[temp.index].setDaemon(True)
+            self.readThreads[temp.index].setDaemon(True)
 
     if (self.numDevices == 0):
         print("No Devices Found")
