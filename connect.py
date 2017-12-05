@@ -89,30 +89,30 @@ class DeviceContainer:
   # def startRead(self, index):
   #   connectedDevs.readThreads[index].start()
 
-  def reconnect(self, index):
+    def reconnect(self, index):
     # delete old readFrom thread and pexpect spawn
         self.connectedDevs[index].devHandle.terminate()
         self.connectedDevs[index].readThread.cancel()
         print(self.connectedDevs[index].readThread.isAlive())
         self.connectDevs[index].devHandle = self.connectedDevs[index].connect()
  	    
-def readFrom(index):
-    connectedDevs[index].devHandle.sendline("char-write-req 0x0011 0100 -listen")
-    print("Reading...")
+    def readFrom(self, index):
+        self.connectedDevs[index].devHandle.sendline("char-write-req 0x0011 0100 -listen")
+        print("Reading...")
 
-    while True:
-        if connectedDevs[index].parser.handle == False:
-            quit()
-        i = connectedDevs[index].devHandle.expect([pexpect.TIMEOUT, pexpect.EOF, "Notification handle = 0x0010 value: "], timeout=3)
-        if i == 0:
-            print('Device disconnected')
-            device.isConnected = False
-            reconnect(index)
-        elif i == 1:
-            pass
-        else:
-            connectedDevs[index].devHandle.expect("\r\n")
-            connectedDevs[index].parser.unpackage(device.devHandle.before)
+        while True:
+            if self.connectedDevs[index].parser.handle == False:
+                quit()
+            i = self.connectedDevs[index].devHandle.expect([pexpect.TIMEOUT, pexpect.EOF, "Notification handle = 0x0010 value: "], timeout=3)
+            if i == 0:
+                print('Device disconnected')
+                self.connectedDevs[index].isConnected = False
+                self.reconnect(index)
+            elif i == 1:
+                pass
+            else:
+                self.connectedDevs[index].devHandle.expect("\r\n")
+                self.connectedDevs[index].parser.unpackage(device.devHandle.before)
 
 
 
