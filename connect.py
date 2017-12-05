@@ -100,9 +100,10 @@ def readFromThread(connectedDevs, index):
 
 def writeTo(device, data):
     command = "char-write-req 0x0019 " + data
-    # Add check if the device is connected, if not store alert?
+    
     while device.isConnected == False:
         print("waiting to send..")
+        time.sleep(2)
 
     device.devHandle.sendline(command)
     print("Write Successful")
