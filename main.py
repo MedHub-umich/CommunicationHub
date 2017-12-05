@@ -7,7 +7,7 @@ connectedDevs = connect()
 
 time.sleep(2)
 
-BLEwrite(connectedDevs[0],  "00020101")
+writeTo(connectedDevs[0],  "00020101")
 
 while(1):
 	pass

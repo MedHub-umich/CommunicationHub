@@ -4,15 +4,12 @@ import threading
 from unpackager import Unpackager
 
 DEVICES = ["EC:B1:FE:A2:84:01", "D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51", "FA:9A:A3:54:EE:DA"]
-# DEVICES = ["EF:DD:9C:D6:FB:6B"]
+
 class Device:
     def __init__(self, MACaddress, index):
         self.MACaddress = MACaddress
-        # self.devHandle = self.connect()
         self.parser = Unpackager(MACaddress)
         self.isConnected = False
-        # self.readThread = threading.Thread(target=readFrom, args=(self,))
-        # self.readThread.setDaemon(True)
         self.index = index
 
     def connect(self):
@@ -23,14 +20,11 @@ class Device:
         try:
             self.devHandle.expect("Connection successful", timeout=2)
             self.isConnected = True
-            # numDevices += 1
    
         except:
             print("Could not find "),
             print(self.MACaddress)
             self.isConnected = False
-
-        # return devHandle
 
 
 class DeviceContainer:
@@ -64,35 +58,10 @@ class DeviceContainer:
 
     return self.connectedDevs
 
- #  def connectSingle(self, MACaddress, index):
- #    command = "sudo gatttool -i hci0 -t random  -b " + MACaddress + " -I"
- #    if index >= self.numDevices:
- #        self.connectedDevs.append(Device(MACaddress, pexpect.spawn(command), index))
-
- #    else:
- #        self.connectedDevs[index].devHandle = pexpect.spawn(command)
-
- #    self.connectedDevs[index].devHandle.sendline("connect")
-    
- #    try:
- #        self.connectedDevs[index].devHandle.expect("Connection successful", timeout=2)
- #        connected = True
- #        # numDevices += 1
-   
- #    except:
- #        print("Could not find "),
-	# print(MACaddress)
- #        self.connectedDevs = self.connectedDevs[:-1]  # pop
- #        connected = False
- #    return connected
-
-  # def startRead(self, index):
-  #   connectedDevs.readThreads[index].start()
   def reconnect(self, index):
     # delete old readFrom thread and pexpect spawn
         self.connectedDevs[index].devHandle.terminate()
-        # self.readThreads[index].kill()
-        print(self.readThreads[index].isAlive())
+        print(self.readThreads[index].isAlive()) # TODO: slightly concerning that the thread is still alive...
         self.connectedDevs[index].connect()
         print("connected? "),
         print(self.connectedDevs[index].isConnected)
@@ -129,11 +98,15 @@ def readFromThread(connectedDevs, index):
 
 
 
-def writeTo(devHandle, data):
+def writeTo(device, data):
     command = "char-write-req 0x0019 " + data
     # Add check if the device is connected, if not store alert?
-    devHandle.sendline(command)
+    while device.isConnected == False:
+        print("waiting to send..")
+
+    device.devHandle.sendline(command)
     print("Write Successful")
+
 
 
 
