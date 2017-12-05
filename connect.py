@@ -91,8 +91,8 @@ class DeviceContainer:
   def reconnect(self, index):
     # delete old readFrom thread and pexpect spawn
         self.connectedDevs[index].devHandle.terminate()
-        self.connectedDevs[index].readThread.cancel()
-        print(self.connectedDevs[index].readThread.isAlive())
+        # self.connectedDevs[index].readThread.cancel()
+        print(self.connectedDevs.readThreads[index].isAlive())
         self.connectDevs[index].devHandle = self.connectedDevs[index].connect()
  	    
   def readFrom(self, index):
