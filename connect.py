@@ -100,7 +100,7 @@ class DeviceContainer:
         # add new read thread
         while (self.connectedDevs[index].isConnected == False):
             self.connectedDevs[index].connect()
-            
+
         self.readThreads[index] = threading.Thread(target=readFromThread, args=(self, index))
         self.readThreads[index].setDaemon(True)
         self.readThreads[index].start()
@@ -117,7 +117,7 @@ class DeviceContainer:
                 print('Device disconnected')
                 self.connectedDevs[index].isConnected = False
                 self.reconnect(index)
-                return
+                exit(1)
             elif i == 1:
                 pass
             else:
