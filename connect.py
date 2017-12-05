@@ -108,7 +108,14 @@ def writeTo(device, data):
     device.devHandle.sendline(command)
     print("Write Successful")
 
+def connect():
+    BLEdevs = DeviceContainer()
 
+    connectedDevs = BLEdevs.connectDevices()
+    while(len(connectedDevs) == 0):
+        connectedDevs = BLEdevs.connectDevices()
+
+    return connectedDevs
 
 
 
