@@ -5,8 +5,8 @@ import config
 
 Users = [1, 2]
 
-class writer(Thread, connectedDevs):
-	def __init__(self):
+class writer(Thread):
+	def __init__(self, connectedDevs):
 		Thread.__init__(self)
 		self.connectedDevs = connectedDevs
 		self.start()
