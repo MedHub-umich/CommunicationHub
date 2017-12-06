@@ -1,6 +1,7 @@
 from bitstring import BitArray, BitStream
 from contextualizer import Contextualizer
 import crcmod
+from config import PacketTypes
 
 # Basically enum for stats
 class States:
@@ -19,6 +20,13 @@ class Unpackager:
         self.MAC_ADDRESS = MAC_ADDRESS
         BitArray.bytealigned = True
         self.crcfunc = crcmod.mkCrcFun(0x11021, initCrc=0x1d0f, rev=False, xorOut=0x0000)
+        self.queueDict = {}
+        self.queueDict[PacketTypes.BLOOD_PRESSURE] = []
+        self.queueDict[PacketTypes.ECG]= []
+        self.queueDict[PacketTypes.BREATHING_RATE] = []
+        self.queueDict[PacketTypes.TEMPERATURE] = []
+        self.queueDict[PacketTypes.HEART_RATE] = []
+            
     
     def unpackage(self, message):
         # Ingest with context
@@ -111,5 +119,6 @@ class Unpackager:
 
     def calculateCRC(self):
         return self.crcfunc(self.data.bytes) == self.checksum
+
 
 
