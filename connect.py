@@ -83,7 +83,7 @@ class DeviceContainer:
                 quit()
             #TODO: Test the timeout thing
             i = self.connectedDevs[index].devHandle.expect([pexpect.TIMEOUT, pexpect.EOF, "Notification handle = 0x0010 value: "], timeout=3)
-            if i == 1:
+            if i == 0:
                 print('Device disconnected')
                 self.connectedDevs[index].isConnected = False
                 self.reconnect(index)
