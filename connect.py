@@ -53,9 +53,9 @@ class DeviceContainer:
             self.readThreads[temp.index].start()
     bloodPressure = Device(BLOOD_PRESSURE, self.numDevices)
     bloodPressure.connect()
-    if bloodPressure.isConnected():
+    if bloodPressure.isConnected() == True:
         self.numDevices += 1
-        self.connectedDevs.append(temp)
+        self.connectedDevs.append(bloodPressure)
 
     if (self.numDevices == 0):
         print("No Devices Found")
