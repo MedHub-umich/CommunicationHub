@@ -22,6 +22,8 @@ class writer(Thread):
 				r = requests.get('http://medhub-server.herokuapp.com/api/v1.0/alert/' + str(user))
 				if len(r.alerts) > 0 and not userDevice is None:
 					for alert in r.alerts:
+						print ("Sending alert "),
+						print (alert.data)
 						individualWrite.writeWorker(userDevice, alert.data)
 
 
