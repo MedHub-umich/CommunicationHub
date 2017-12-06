@@ -10,6 +10,7 @@ class writer(Thread):
 	def __init__(self, connectedDevs):
 		Thread.__init__(self)
 		self.connectedDevs = connectedDevs
+		self.daemon = True
 		self.start()
 
 	def run(self):

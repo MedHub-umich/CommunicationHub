@@ -7,6 +7,7 @@ class writeWorker(Thread):
 		Thread.__init__(self)
 		self.device = device
 		self.data = data
+		self.daemon = True
 		self.start()
 
 	def run(self):
