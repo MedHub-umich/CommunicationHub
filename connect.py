@@ -88,7 +88,7 @@ class DeviceContainer:
             if self.connectedDevs[index].parser.handle == False:
                 quit()
             #TODO: Test the timeout thing
-            i = self.connectedDevs[index].devHandle.expect([pexpect.TIMEOUT, pexpect.EOF, "Notification handle = 0x0010 value: "], timeout=MACTimeout[self.connectDevices[index].MACaddress])
+            i = self.connectedDevs[index].devHandle.expect([pexpect.TIMEOUT, pexpect.EOF, "Notification handle = 0x0010 value: "], timeout=MACTimeout[self.connectedDevs[index].MACaddress])
             if i == 0:
                 print('Device disconnected')
                 self.connectedDevs[index].isConnected = False
