@@ -51,12 +51,16 @@ class DeviceContainer:
             self.readThreads.append(threading.Thread(target=readFromThread, args=(self, temp.index)))
             self.readThreads[temp.index].setDaemon(True)
             self.readThreads[temp.index].start()
+
     bloodPressure = Device(BLOOD_PRESSURE, self.numDevices)
     bloodPressure.connect()
     if bloodPressure.isConnected == True:
         self.numDevices += 1
         self.connectedDevs.append(bloodPressure)
+        self.readThreads.append(threading.Thread(target=readFromThread, args=(self, temp.index)))
+        self.readThreads[temp.index].setDaemon(True)
         self.reconnect(bloodPressure.index)
+        
 
     if (self.numDevices == 0):
         print("No Devices Found")
