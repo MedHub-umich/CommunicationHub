@@ -19,7 +19,7 @@ class writer(Thread):
 				for dev in self.connectedDevs:
 					if dev.MACaddress == macAddr:
 						userDevice = dev
-				r = requests.get('medhub-server.herokuapp.com/api/v1.0/alert/' + str(user));
+				r = requests.get('http://medhub-server.herokuapp.com/api/v1.0/alert/' + str(user))
 				if len(r.alerts) > 0 and not userDevice is None:
 					for alert in r.alerts:
 						individualWrite.writeWorker(userDevice, alert.data)
