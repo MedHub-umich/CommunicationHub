@@ -71,7 +71,7 @@ class DeviceContainer:
   def reconnect(self, index):
     # delete old readFrom thread and pexpect spawn
         self.connectedDevs[index].devHandle.terminate()
-        print(self.readThreads[index].isAlive()) # TODO: slightly concerning that the thread is still alive...
+        # print(self.readThreads[index].isAlive()) # TODO: slightly concerning that the thread is still alive...
         self.connectedDevs[index].connect()
         print("connected? "),
         print(self.connectedDevs[index].isConnected)
