@@ -6,7 +6,8 @@ from unpackager import Unpackager
 # "EC:B1:FE:A2:84:01", "D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51"
 
 #Note "F3:C9:F9:A0:E9:6E" is the BP device
-DEVICES = ["F3:C9:F9:A0:E9:6E",] #"FA:9A:A3:54:EE:DA", "EC:B1:FE:A2:84:01"]
+DEVICES = ["FA:9A:A3:54:EE:DA", "EC:B1:FE:A2:84:01"]
+BLOOD_PRESSURE = "F3:C9:F9:A0:E9:6E"
 
 class Device:
     def __init__(self, MACaddress, index):
@@ -47,9 +48,10 @@ class DeviceContainer:
             print("device registered as connected")
             self.numDevices += 1
             self.connectedDevs.append(temp)
-            self.readThreads.append(threading.Thread(target=readFromThread, args=(self, temp.index)))
-            self.readThreads[temp.index].setDaemon(True)
-            self.readThreads[temp.index].start()
+            if (temp.MACaddress != BLOOD_PRESSURE):
+                self.readThreads.append(threading.Thread(target=readFromThread, args=(self, temp.index)))
+                self.readThreads[temp.index].setDaemon(True)
+                self.readThreads[temp.index].start()
 
     if (self.numDevices == 0):
         print("No Devices Found")
