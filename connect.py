@@ -48,10 +48,13 @@ class DeviceContainer:
             print("device registered as connected")
             self.numDevices += 1
             self.connectedDevs.append(temp)
-            if (temp.MACaddress != BLOOD_PRESSURE):
-                self.readThreads.append(threading.Thread(target=readFromThread, args=(self, temp.index)))
-                self.readThreads[temp.index].setDaemon(True)
-                self.readThreads[temp.index].start()
+            self.readThreads.append(threading.Thread(target=readFromThread, args=(self, temp.index)))
+            self.readThreads[temp.index].setDaemon(True)
+            self.readThreads[temp.index].start()
+    bloodPressure = Device(BLOOD_PRESSURE, self.numDevices)
+    if bloodPressure.isConnected():
+        self.numDevices += 1
+        self.connectedDevs.append(temp)
 
     if (self.numDevices == 0):
         print("No Devices Found")
