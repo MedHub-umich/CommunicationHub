@@ -2,6 +2,7 @@ from threading import *
 import requests
 import individualWrite
 import config
+import time
 
 Users = [1, 2]
 
@@ -25,6 +26,7 @@ class writer(Thread):
 						print ("Sending alert "),
 						print (alert.data)
 						individualWrite.writeWorker(userDevice, alert.data)
+			time.sleep(2)
 
 
 
