@@ -52,7 +52,6 @@ class Unpackager:
             print ("FAILED NOT WORKING FUCKINGN SHIT")
             quit()
         self.handle = False
-        print(message)
         bitMessage = BitArray(hex=message)
         for byte in bitMessage.bytes:
             byteHex = '0x' + byte.encode("hex")
