@@ -52,6 +52,7 @@ class DeviceContainer:
             self.readThreads[temp.index].setDaemon(True)
             self.readThreads[temp.index].start()
     bloodPressure = Device(BLOOD_PRESSURE, self.numDevices)
+    bloodPressure.connect()
     if bloodPressure.isConnected():
         self.numDevices += 1
         self.connectedDevs.append(temp)
