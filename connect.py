@@ -56,6 +56,7 @@ class DeviceContainer:
     if bloodPressure.isConnected == True:
         self.numDevices += 1
         self.connectedDevs.append(bloodPressure)
+        reconnect(bloodPressure.index)
 
     if (self.numDevices == 0):
         print("No Devices Found")
