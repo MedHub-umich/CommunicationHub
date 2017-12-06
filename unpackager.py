@@ -113,6 +113,7 @@ class Unpackager:
             print("failed")
             print(message)
             print(self.buffer)
+            print(self.size)
             
         
         self.resetPackager()
