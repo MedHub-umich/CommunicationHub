@@ -18,6 +18,7 @@ class PacketTypes:
     BREATHING_RATE = 4
     TEMPERATURE = 5
     BLOOD_PRESSURE = 1
+    ALERT = 6
 
 QueueLimits = {
 	PacketTypes.HEART_RATE : 1,
@@ -25,6 +26,7 @@ QueueLimits = {
 	PacketTypes.BREATHING_RATE : 1,
 	PacketTypes.TEMPERATURE : 1,
 	PacketTypes.BLOOD_PRESSURE : 1,
+	PacketTypes.ALERT : 1
 }
 
 add_data_url = "http://medhub-server.herokuapp.com/api/v1.0/add_data"

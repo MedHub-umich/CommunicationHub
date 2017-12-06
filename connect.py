@@ -4,7 +4,9 @@ import threading
 from unpackager import Unpackager
 #, "FA:9A:A3:54:EE:DA" is PCB 2
 # "EC:B1:FE:A2:84:01", "D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51"
-DEVICES = ["F3:C9:F9:A0:E9:6E"] #"FA:9A:A3:54:EE:DA", "EC:B1:FE:A2:84:01"]
+
+#Note "F3:C9:F9:A0:E9:6E" is the BP device
+DEVICES = ["F3:C9:F9:A0:E9:6E", "FA:9A:A3:54:EE:DA", "EC:B1:FE:A2:84:01"]
 
 class Device:
     def __init__(self, MACaddress, index):
