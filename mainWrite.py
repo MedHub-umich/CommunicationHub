@@ -22,7 +22,6 @@ class writer(Thread):
 					if dev.MACaddress == macAddr:
 						userDevice = dev
 				r = requests.get('http://medhub-server.herokuapp.com/api/v1.0/alert/' + str(user))
-				print(r.status_code)
 				alerts = r.json()['alerts']
 				if len(alerts) > 0 and not userDevice is None:
 					for alert in alerts:
