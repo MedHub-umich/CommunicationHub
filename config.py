@@ -7,6 +7,11 @@ MACtranslation = {
 	"FA:9A:A3:54:EE:DA" : 1,
 }
 
+userToMac = {
+	1 : "EC:B1:FE:A2:84:01",
+	2 : "D9:04:7D:17:F7:80"
+}
+
 class PacketTypes:
     HEART_RATE = 3
     ECG = 2
