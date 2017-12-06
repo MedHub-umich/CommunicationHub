@@ -3,7 +3,11 @@ import time
 import threading
 from unpackager import Unpackager
 #, "FA:9A:A3:54:EE:DA" is PCB 2
-DEVICES = ["EC:B1:FE:A2:84:01", "D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51"]
+# "EC:B1:FE:A2:84:01", "D9:04:7D:17:F7:80", "EF:DD:9C:D6:FB:6B", "F3:C9:F9:A0:E9:6E", "E6:3B:21:18:45:51"
+
+#Note "F3:C9:F9:A0:E9:6E" is the BP device
+DEVICES = ["FA:9A:A3:54:EE:DA", "EC:B1:FE:A2:84:01"]
+BLOOD_PRESSURE = "F3:C9:F9:A0:E9:6E"
 
 class Device:
     def __init__(self, MACaddress, index):
@@ -48,6 +52,16 @@ class DeviceContainer:
             self.readThreads[temp.index].setDaemon(True)
             self.readThreads[temp.index].start()
 
+    bloodPressure = Device(BLOOD_PRESSURE, self.numDevices)
+    bloodPressure.connect()
+    if bloodPressure.isConnected == True:
+        self.numDevices += 1
+        self.connectedDevs.append(bloodPressure)
+        self.readThreads.append(threading.Thread(target=readFromThread, args=(self, temp.index)))
+        self.readThreads[temp.index].setDaemon(True)
+        self.reconnect(bloodPressure.index)
+        
+
     if (self.numDevices == 0):
         print("No Devices Found")
 
@@ -61,7 +75,7 @@ class DeviceContainer:
   def reconnect(self, index):
     # delete old readFrom thread and pexpect spawn
         self.connectedDevs[index].devHandle.terminate()
-        print(self.readThreads[index].isAlive()) # TODO: slightly concerning that the thread is still alive...
+        # print(self.readThreads[index].isAlive()) # TODO: slightly concerning that the thread is still alive...
         self.connectedDevs[index].connect()
         print("connected? "),
         print(self.connectedDevs[index].isConnected)
