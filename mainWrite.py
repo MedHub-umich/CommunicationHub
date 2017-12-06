@@ -29,8 +29,8 @@ class writer(Thread):
 						print (alert['data'])
 						individualWrite.writeWorker(userDevice, alert['data'])
 				else:
-					print("No alert found for user: "),
-					print(user)
+					#print("No alert found for user: "),
+					#print(user)
 			time.sleep(2)
 
 
