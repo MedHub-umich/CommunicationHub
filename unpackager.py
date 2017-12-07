@@ -26,6 +26,7 @@ class Unpackager:
         self.queueDict[PacketTypes.BREATHING_RATE] = []
         self.queueDict[PacketTypes.TEMPERATURE] = []
         self.queueDict[PacketTypes.HEART_RATE] = []
+        self.queueDict[PacketTypes.ALERT] = []
             
     
     def unpackage(self, message):
